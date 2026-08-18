@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.16)  17 AUG 2026 13:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.16)  18 AUG 2026 19:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -366,6 +366,8 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip57
+) (C:\Users\jenni\AppData\Local\Programs\MiKTeX\tex/latex/anyfontsize\anyfontsize.sty
+Package: anyfontsize 2007/11/22 anyfontsize.sty by pts
 ) (C:\Users\jenni\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@headwidth=\skip58
@@ -449,35 +451,31 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 42.
+Package hyperref Info: Option `colorlinks' set `true' on input line 43.
  (C:\Users\jenni\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count333
-) (main.aux
-
-LaTeX Warning: Label `fig:alur-fuzzy' multiply defined.
-
-)
+) (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -533,28 +531,19 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 \c@lstlisting=\count340
-Package hyperref Info: Link coloring ON on input line 102.
+Package hyperref Info: Link coloring ON on input line 111.
  (main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-
-
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <16> not available
-(Font)              size <17.28> substituted on input line 113.
-
-
-LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <16> not available
-(Font)              size <17.28> substituted on input line 113.
-
-<images/Logo_Universitas_Brawijaya.png, id=115, 864.98157pt x 869.49844pt>
+<images/Logo_Universitas_Brawijaya.png, id=103, 864.98157pt x 869.49844pt>
 File: images/Logo_Universitas_Brawijaya.png Graphic file (type png)
 <use images/Logo_Universitas_Brawijaya.png>
-Package pdftex.def Info: images/Logo_Universitas_Brawijaya.png  used on input line 126.
+Package pdftex.def Info: images/Logo_Universitas_Brawijaya.png  used on input line 140.
 (pdftex.def)             Requested size: 199.16595pt x 199.17111pt.
-[1
+ [1
 
 {C:/Users/jenni/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./images/Logo_Universitas_Brawijaya.png>] (main.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 2.
@@ -571,36 +560,36 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [1
 
 ]
-Overfull \vbox (46.16856pt too high) detected at line 278
+Overfull \vbox (46.16856pt too high) detected at line 284
  []
 
 
-Overfull \vbox (46.16856pt too high) detected at line 278
+Overfull \vbox (46.16856pt too high) detected at line 284
  []
 
 File: images/esp32.png Graphic file (type png)
 <use images/esp32.png>
-Package pdftex.def Info: images/esp32.png  used on input line 278.
+Package pdftex.def Info: images/esp32.png  used on input line 284.
 (pdftex.def)             Requested size: 51.2013pt x 27.08548pt.
 File: images/dht22.png Graphic file (type png)
 <use images/dht22.png>
-Package pdftex.def Info: images/dht22.png  used on input line 278.
+Package pdftex.def Info: images/dht22.png  used on input line 284.
 (pdftex.def)             Requested size: 31.29053pt x 31.29053pt.
 File: images/soil-moisture.png Graphic file (type png)
 <use images/soil-moisture.png>
-Package pdftex.def Info: images/soil-moisture.png  used on input line 278.
+Package pdftex.def Info: images/soil-moisture.png  used on input line 284.
 (pdftex.def)             Requested size: 31.2936pt x 31.2936pt.
 File: images/kabel-jumper.png Graphic file (type png)
 <use images/kabel-jumper.png>
-Package pdftex.def Info: images/kabel-jumper.png  used on input line 278.
+Package pdftex.def Info: images/kabel-jumper.png  used on input line 284.
 (pdftex.def)             Requested size: 51.20894pt x 51.20894pt.
 
-Overfull \vbox (46.16856pt too high) detected at line 278
+Overfull \vbox (46.16856pt too high) detected at line 284
  []
 
 File: images/bread_board.png Graphic file (type png)
 <use images/bread_board.png>
-Package pdftex.def Info: images/bread_board.png  used on input line 278.
+Package pdftex.def Info: images/bread_board.png  used on input line 284.
 (pdftex.def)             Requested size: 31.29053pt x 31.29053pt.
 
 Overfull \vbox (46.16856pt too high) detected at line 367
@@ -630,12 +619,12 @@ File: images/laptop.jpg Graphic file (type jpg)
 <use images/laptop.jpg>
 Package pdftex.def Info: images/laptop.jpg  used on input line 367.
 (pdftex.def)             Requested size: 47.17656pt x 31.29686pt.
-<images/Logo_FILKOM.png, id=168, 501.875pt x 193.72375pt>
+<images/Logo_FILKOM.png, id=153, 501.875pt x 193.72375pt>
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
 Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 368.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
-<images/Logo_Lab_RES.png, id=169, 7607.36842pt x 7607.36842pt>
+<images/Logo_Lab_RES.png, id=154, 7607.36842pt x 7607.36842pt>
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
 Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 368.
@@ -650,93 +639,93 @@ l.368 \end{center}
  <./images/Logo_FILKOM.png> <./images/Logo_Lab_RES.png> <./images/esp32.png> <./images/dht22.png> <./images/soil-moisture.png> <./images/kabel-jumper.png> <./images/bread_board.png>]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 387.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 388.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 387.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 388.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [2 <./images/led.jpg> <./images/resistor.png> <./images/hidroponik.png> <./images/laptop.jpg>]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 407.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 408.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 407.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 408.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [3]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 462.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 454.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 462.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 454.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [4]
-<images/alur-contoh.png, id=208, 1135.24126pt x 449.88075pt>
+<images/alur-contoh.png, id=192, 1135.24126pt x 449.88075pt>
 File: images/alur-contoh.png Graphic file (type png)
 <use images/alur-contoh.png>
-Package pdftex.def Info: images/alur-contoh.png  used on input line 496.
+Package pdftex.def Info: images/alur-contoh.png  used on input line 494.
 (pdftex.def)             Requested size: 455.24411pt x 180.40904pt.
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 500.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 498.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 500.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 498.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [5]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 528.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 527.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 528.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 527.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [6 <./images/alur-contoh.png>]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 579.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 580.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 579.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 580.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [7]
-<images/diagram-blok-sistem.png, id=243, 1678.27pt x 944.52875pt>
+<images/diagram-blok-sistem.png, id=228, 1678.27pt x 944.52875pt>
 File: images/diagram-blok-sistem.png Graphic file (type png)
 <use images/diagram-blok-sistem.png>
-Package pdftex.def Info: images/diagram-blok-sistem.png  used on input line 589.
+Package pdftex.def Info: images/diagram-blok-sistem.png  used on input line 592.
 (pdftex.def)             Requested size: 273.14923pt x 153.72191pt.
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 618.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 643.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 618.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 643.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [8 <./images/diagram-blok-sistem.png (PNG copy)>]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 673.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 752.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 673.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 752.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [9]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 714.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 798.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 714.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 798.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [10] (C:\Users\jenni\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
@@ -745,45 +734,18 @@ File: lstlang1.sty 2025/11/14 1.11b listings language file
 ) (C:\Users\jenni\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 730.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 821.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 731.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 822.
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 753.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 833.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 753.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 833.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [11]
-File: images/Logo_FILKOM.png Graphic file (type png)
-<use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 778.
-(pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
-File: images/Logo_Lab_RES.png Graphic file (type png)
-<use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 778.
-(pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
- [12]
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 791--792
-[][] 
- []
-
-
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 794--795
-[][] 
- []
-
-File: images/Logo_FILKOM.png Graphic file (type png)
-<use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 817.
-(pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
-File: images/Logo_Lab_RES.png Graphic file (type png)
-<use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 817.
-(pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
-[13]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
 Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 864.
@@ -792,123 +754,107 @@ File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
 Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 864.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
- [14]
+ [12]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 914.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 906.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 914.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 906.
+(pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
+ [13]
+File: images/Logo_FILKOM.png Graphic file (type png)
+<use images/Logo_FILKOM.png>
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 941.
+(pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
+File: images/Logo_Lab_RES.png Graphic file (type png)
+<use images/Logo_Lab_RES.png>
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 941.
+(pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
+ [14]
+File: images/Logo_FILKOM.png Graphic file (type png)
+<use images/Logo_FILKOM.png>
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 985.
+(pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
+File: images/Logo_Lab_RES.png Graphic file (type png)
+<use images/Logo_Lab_RES.png>
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 985.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [15]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 965.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1035.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 965.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1035.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [16]
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 999--1000
-[][] 
- []
-
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1002.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1084.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1002.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1084.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
-[17]
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 1002--1003
-[][] 
- []
-
+ [17]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1036.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1143.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1036.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1143.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
-[18]
+ [18]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1076.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1149.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1076.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1149.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
  [19]
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 1095--1096
-[][] 
- []
-
-
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 1098--1099
-[][] 
- []
-
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1116.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1192.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1116.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1192.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
-[20]
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 1136--1137
-[][] 
- []
-
-
-Overfull \hbox (35.56593pt too wide) in paragraph at lines 1144--1145
-[][] 
- []
-
+ [20]
 File: images/Logo_FILKOM.png Graphic file (type png)
 <use images/Logo_FILKOM.png>
-Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1155.
+Package pdftex.def Info: images/Logo_FILKOM.png  used on input line 1220.
 (pdftex.def)             Requested size: 44.22485pt x 17.07182pt.
 File: images/Logo_Lab_RES.png Graphic file (type png)
 <use images/Logo_Lab_RES.png>
-Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1155.
+Package pdftex.def Info: images/Logo_Lab_RES.png  used on input line 1220.
 (pdftex.def)             Requested size: 17.0636pt x 17.07182pt.
-[21] (main.aux)
+ [21] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
-
-
-LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 1.28pt have occurred.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 35C250C4463AA2950E881647540ACE38;4479.
+(rerunfilecheck)             Checksum: 2DE623C4299BE6F99FD33BC2528D04B7;3935.
  ) 
 Here is how much of TeX's memory you used:
- 16722 strings out of 467871
- 264413 string characters out of 5418376
- 1268430 words of memory out of 5000000
- 45064 multiletter control sequences out of 15000+600000
+ 16738 strings out of 467871
+ 265012 string characters out of 5418376
+ 1226061 words of memory out of 5000000
+ 45078 multiletter control sequences out of 15000+600000
  637881 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,17n,79p,693b,2172s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\jenni\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (23 pages, 10829499 bytes).
+ <C:\Users\jenni\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/jenni/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on main.pdf (23 pages, 10833165 bytes).
 PDF statistics:
- 690 PDF objects out of 1000 (max. 8388607)
- 323 named destinations out of 1000 (max. 500000)
- 295 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 681 PDF objects out of 1000 (max. 8388607)
+ 321 named destinations out of 1000 (max. 500000)
+ 271 words of extra memory for PDF output out of 10000 (max. 10000000)
 
