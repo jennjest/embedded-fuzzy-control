@@ -598,7 +598,7 @@ Alur kerja sistem dimulai dari pembacaan data suhu dan kelembapan tanah oleh sen
 
 \subsection{Perancangan Input dan Output}
 
-Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan tanah. Masing-masing variabel dibagi menjadi tiga kategori untuk menyederhanakan proses pengambilan keputusan dan penyusunan rule. Setiap kategori memiliki batas nilai yang telah ditentukan sesuai dengan parameter yang digunakan pada sistem.
+Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan media. Masing-masing variabel dibagi menjadi tiga kategori untuk menyederhanakan proses pengambilan keputusan dan penyusunan rule. Setiap kategori memiliki batas nilai yang telah ditentukan sesuai dengan parameter membership function yang digunakan pada sistem.
 
 \begin{table}[H]
     \centering
@@ -612,30 +612,30 @@ Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan tanah. 
         \midrule
 
         Suhu &
-        Rendah &
+        Dingin &
         Suhu relatif rendah untuk kondisi pengamatan \\
 
         Suhu &
-        Sedang &
-        Suhu relatif sesuai dengan kondisi pengamatan \\
+        Normal &
+        Suhu berada pada rentang kondisi normal untuk pengamatan \\
 
         Suhu &
-        Tinggi &
+        Panas &
         Suhu relatif tinggi untuk kondisi pengamatan \\
 
         \midrule
 
-        Kelembapan tanah &
+        Kelembapan media &
         Kering &
-        Media relatif kering \\
+        Media tanam memiliki tingkat kelembapan rendah \\
 
-        Kelembapan tanah &
+        Kelembapan media &
         Lembap &
-        Media memiliki kelembapan yang sesuai \\
+        Media tanam memiliki tingkat kelembapan sedang \\
 
-        Kelembapan tanah &
+        Kelembapan media &
         Basah &
-        Media relatif basah \\
+        Media tanam memiliki tingkat kelembapan tinggi \\
 
         \bottomrule
     \end{tabularx}
@@ -676,11 +676,11 @@ Output sistem terdiri dari tiga kategori yang digunakan untuk merepresentasikan 
 
 \subsection{Membership Function}
 
-Membership function digunakan untuk mengubah nilai sensor menjadi derajat keanggotaan. Bentuk yang digunakan pada modul ini adalah fungsi keanggotaan segitiga karena dapat dihitung dengan langkah yang sederhana. Parameter pada tabel berikut adalah contoh rancangan awal dan bukan hasil kalibrasi aktual.
+Membership function digunakan untuk mengubah nilai sensor menjadi derajat keanggotaan. Pada program percobaan digunakan fungsi keanggotaan untuk suhu dan kelembapan tanah dengan parameter yang telah ditentukan di dalam program. Parameter tersebut digunakan langsung oleh ESP32 pada proses fuzzifikasi sebelum dilanjutkan ke tahap inferensi.
 
 \begin{table}[H]
     \centering
-    \caption{Contoh parameter membership function suhu}
+    \caption{Parameter membership function suhu}
     \label{tab:mfsuhu}
     \begin{tabularx}{\textwidth}{l c c c X}
         \toprule
@@ -688,26 +688,26 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
         \textbf{a} &
         \textbf{b} &
         \textbf{c} &
-        \textbf{Status} \\
+        \textbf{Keterangan} \\
         \midrule
 
-        Rendah &
+        Dingin &
         15 &
         20 &
+        28 &
+        Fungsi keanggotaan suhu dingin \\
+
+        Normal &
         25 &
-        \textbf{[CONTOH PARAMETER]} \\
-
-        Sedang &
-        22 &
-        27 &
+        28,5 &
         32 &
-        \textbf{[CONTOH PARAMETER]} \\
+        Fungsi keanggotaan suhu normal \\
 
-        Tinggi &
-        29 &
-        34 &
-        39 &
-        \textbf{[CONTOH PARAMETER]} \\
+        Panas &
+        30 &
+        40 &
+        45 &
+        Fungsi keanggotaan suhu panas \\
 
         \bottomrule
     \end{tabularx}
@@ -715,7 +715,7 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
 
 \begin{table}[H]
     \centering
-    \caption{Contoh parameter membership function kelembapan tanah}
+    \caption{Parameter membership function kelembapan tanah}
     \label{tab:mfsoil}
     \begin{tabularx}{\textwidth}{l c c c X}
         \toprule
@@ -723,77 +723,84 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
         \textbf{a} &
         \textbf{b} &
         \textbf{c} &
-        \textbf{Status} \\
+        \textbf{Keterangan} \\
         \midrule
 
         Kering &
-        0 &
-        20 &
-        40 &
-        \textbf{[CONTOH PARAMETER]} \\
+        10 &
+        10 &
+        35 &
+        Fungsi keanggotaan kelembapan kering \\
 
         Lembap &
-        30 &
-        50 &
+        20 &
+        45 &
         70 &
-        \textbf{[CONTOH PARAMETER]} \\
+        Fungsi keanggotaan kelembapan lembap \\
 
         Basah &
-        60 &
-        80 &
+        55 &
         100 &
-        \textbf{[CONTOH PARAMETER]} \\
+        110 &
+        Fungsi keanggotaan kelembapan basah \\
 
         \bottomrule
     \end{tabularx}
 \end{table}
 
-Penguji tidak perlu menghitung seluruh kombinasi membership function secara manual. Satu contoh perhitungan digunakan untuk memahami alur, sedangkan perhitungan pada program dapat dilakukan oleh ESP32.
+Penguji tidak perlu menghitung seluruh kombinasi membership function secara manual. Parameter membership function telah dimasukkan ke dalam program, sehingga ESP32 melakukan proses fuzzifikasi berdasarkan nilai suhu dan kelembapan tanah yang terbaca oleh sensor.
 
+```latex
 \subsection{Fuzzy Rule}
 
-Rule base dibuat dengan mempertimbangkan dua input utama. Pada kondisi suhu yang sesuai dan kelembapan tanah yang sesuai, keluaran diarahkan menuju kondisi relatif baik. Sebaliknya, kombinasi kondisi yang terlalu kering atau terlalu ekstrem diarahkan menuju indikator merah atau kuning.
+Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelembapan media. Setiap kombinasi input menghasilkan salah satu dari tiga keluaran fuzzy, yaitu singkat, sedang, atau lama. Keluaran fuzzy tersebut kemudian diproses melalui tahap agregasi dan defuzzifikasi untuk memperoleh nilai output akhir yang digunakan dalam menentukan LED.
 
 \begin{table}[H]
     \centering
-    \caption{Rule base}
-    \label{tab:rulebase}
-    \small
-    \begin{tabularx}{\textwidth}{c L L L}
+    \caption{Kategori output sistem}
+    \label{tab:output}
+    \begin{tabularx}{\textwidth}{c c c X}
         \toprule
-        \textbf{No.} &
-        \textbf{Suhu} &
-        \textbf{Kelembapan Tanah} &
-        \textbf{Output} \\
+        \textbf{Output Fuzzy} &
+        \textbf{Rentang Nilai} &
+        \textbf{LED} &
+        \textbf{Makna} \\
         \midrule
 
-        R1 & Rendah & Kering & Merah \\
-        R2 & Rendah & Lembap & Kuning \\
-        R3 & Rendah & Basah & Kuning \\
-        R4 & Sedang & Kering & Kuning \\
-        R5 & Sedang & Lembap & Hijau \\
-        R6 & Sedang & Basah & Hijau \\
-        R7 & Tinggi & Kering & Merah \\
-        R8 & Tinggi & Lembap & Kuning \\
-        R9 & Tinggi & Basah & Kuning \\
+        Singkat &
+        $<8$ &
+        Hijau &
+        Kondisi relatif baik \\
+
+        Sedang &
+        $8 \leq y < 18$ &
+        Kuning &
+        Kondisi perlu diperhatikan \\
+
+        Lama &
+        $y \geq 18$ &
+        Merah &
+        Kondisi kurang sesuai \\
 
         \bottomrule
     \end{tabularx}
 \end{table}
 
-Aturan R5 dapat dibaca sebagai: jika suhu berada pada kategori sedang dan kelembapan tanah berada pada kategori lembap, maka kondisi tanaman dinyatakan relatif baik. Aturan R7 menunjukkan bahwa kombinasi suhu tinggi dan media kering perlu diberi perhatian lebih besar sehingga indikator diarahkan ke merah. Aturan lain digunakan untuk menjaga agar kondisi antara tidak langsung dipetakan sebagai kondisi terbaik atau terburuk.
+Aturan R1, R2, dan R3 menunjukkan bahwa kondisi media yang kering menghasilkan output fuzzy lama sehingga sistem diarahkan menuju LED merah. Aturan R4, R5, dan R6 menghasilkan output fuzzy sedang yang dipetakan ke LED kuning. Sementara itu, R7 dan R8 menghasilkan output fuzzy singkat yang dipetakan ke LED hijau, sedangkan R9 menghasilkan output fuzzy sedang yang dipetakan ke LED kuning.
+
+Output fuzzy pada tabel tidak langsung menjadi nilai LED, tetapi digunakan dalam proses inferensi dan defuzzifikasi. Setelah proses tersebut menghasilkan satu nilai output akhir, sistem menentukan LED berdasarkan rentang nilai yang telah ditetapkan pada program.
 
 % =========================================================
 % 6. PERCOBAAN 1
 % =========================================================
 \section{Percobaan 1: Pembacaan Kondisi Lingkungan}
 
-Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebagai sumber data sistem. Penguji mengamati nilai suhu dan kelembapan tanah sebelum proses pengambilan keputusan diaktifkan. Pada percobaan ini, perubahan kelembapan media dibuat menggunakan beberapa kondisi rockwool, sedangkan perubahan suhu diamati pada kondisi suhu ruangan, saat sensor terkena aliran udara dingin, dan saat sensor terkena aliran udara panas dari hair dryer.
+Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebagai sumber data sistem. Penguji mengamati nilai suhu dan kelembapan tanah sebelum proses pengambilan keputusan diaktifkan. Pada percobaan ini, perubahan kelembapan media dibuat menggunakan beberapa kondisi rockwool, sedangkan perubahan suhu diamati pada kondisi suhu ruangan, saat sensor terkena aliran udara dingin, dan saat sensor terkena aliran udara panas.
 
 \subsection{Prosedur Percobaan}
 
 \begin{enumerate}
-    \item Siapkan ESP32, DHT22, Capacitive Soil Moisture Sensor, breadboard, kabel jumper, rockwool, dan hair dryer.
+    \item Siapkan ESP32, DHT22, Capacitive Soil Moisture Sensor, breadboard, kabel jumper, rockwool, dan sumber aliran udara dingin serta panas.
     \item Rangkai DHT22 dan Capacitive Soil Moisture Sensor sesuai konfigurasi yang digunakan.
     \item Hubungkan ESP32 ke laptop.
     \item Buka program pembacaan sensor.
@@ -807,12 +814,10 @@ Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebaga
     \item Tunggu hingga air tersebar pada rockwool, kemudian catat nilai pembacaan kelembapan tanah.
     \item Siapkan rockwool dalam kondisi basah dengan menambahkan air secukupnya hingga rockwool benar-benar basah.
     \item Catat kembali nilai pembacaan kelembapan tanah.
-    \item Atur hair dryer pada mode udara dingin.
-    \item Arahkan aliran udara ke area sensor dengan jarak yang aman.
+    \item Alirkan udara dingin ke area sensor dengan jarak yang aman.
     \item Amati perubahan nilai suhu yang terbaca pada Serial Monitor.
     \item Catat nilai suhu pada kondisi udara dingin.
-    \item Atur hair dryer pada mode udara panas.
-    \item Arahkan aliran udara ke area sensor dengan jarak yang aman.
+    \item Alirkan udara panas ke area sensor dengan jarak yang aman.
     \item Amati kembali perubahan nilai suhu yang terbaca pada Serial Monitor.
     \item Catat nilai suhu pada kondisi udara panas.
     \item Catat seluruh hasil pengamatan.
@@ -912,7 +917,7 @@ void loop()
 
 \subsection{Analisis Percobaan}
 
-Analisis dilakukan dengan membandingkan pembacaan sensor pada kondisi rockwool yang berbeda dan pada beberapa kondisi suhu. Perhatikan perubahan nilai kelembapan tanah ketika rockwool berada pada kondisi kering, lembap, dan basah. Selain itu, amati perbedaan suhu yang terbaca pada kondisi suhu ruangan, ketika sensor terkena udara dingin, dan ketika sensor terkena udara panas dari hair dryer.
+Analisis dilakukan dengan membandingkan pembacaan sensor pada kondisi rockwool yang berbeda dan pada beberapa kondisi suhu. Perhatikan perubahan nilai kelembapan tanah ketika rockwool berada pada kondisi kering, lembap, dan basah. Selain itu, amati perbedaan suhu yang terbaca pada kondisi suhu ruangan, ketika sensor terkena aliran udara dingin, dan ketika sensor terkena aliran udara panas.
 
 \subsubsection*{Target Pengamatan}
 
@@ -920,8 +925,8 @@ Analisis dilakukan dengan membandingkan pembacaan sensor pada kondisi rockwool y
     \item[$\checkbox$] Data suhu dapat terbaca pada Serial Monitor.
     \item[$\checkbox$] Data kelembapan tanah dapat terbaca.
     \item[$\checkbox$] Nilai sensor kelembapan berubah pada setiap kondisi rockwool.
-    \item[$\checkbox$] Nilai suhu berubah ketika sensor terkena udara dingin dari hair dryer.
-    \item[$\checkbox$] Nilai suhu berubah ketika sensor terkena udara panas dari hair dryer.
+    \item[$\checkbox$] Nilai suhu berubah ketika sensor terkena aliran udara dingin.
+    \item[$\checkbox$] Nilai suhu berubah ketika sensor terkena aliran udara panas.
     \item[$\checkbox$] Pembacaan sensor dapat digunakan sebagai input sistem.
     \item[$\checkbox$] Tidak terdapat pembacaan sensor yang tidak wajar selama pengamatan.
 \end{itemize}
@@ -964,14 +969,14 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
     \item Catat hasil pengamatan.
     \item Uji kondisi suhu ruangan dengan rockwool basah.
     \item Catat hasil pengamatan.
-    \item Atur hair dryer pada mode udara dingin.
+    \item Alirkan udara dingin ke area sensor dengan jarak yang aman.
     \item Uji kondisi udara dingin dengan rockwool kering.
     \item Catat hasil pengamatan.
     \item Uji kondisi udara dingin dengan rockwool lembap.
     \item Catat hasil pengamatan.
     \item Uji kondisi udara dingin dengan rockwool basah.
     \item Catat hasil pengamatan.
-    \item Atur hair dryer pada mode udara panas.
+    \item Alirkan udara panas ke area sensor dengan jarak yang aman.
     \item Uji kondisi udara panas dengan rockwool kering.
     \item Catat hasil pengamatan.
     \item Uji kondisi udara panas dengan rockwool lembap.
@@ -1006,10 +1011,8 @@ unsigned long lastDHTReadTime  = 0;
 
 float lastTemperature = 25.0;
 
-bool pumpActive = false;
-
-unsigned long pumpStartTime = 0;
-unsigned long pumpDurationMs = 0;
+unsigned long ledStartTime = 0;
+unsigned long ledDurationMs = 0;
 
 int activeLedPin = -1;
 
@@ -1178,11 +1181,11 @@ void allLedOff()
 }
 
 void updateOutput(
-  float durasiPompa,
+  float durasi,
   unsigned long now
 )
 {
-  if (durasiPompa < 8.0)
+  if (durasi < 8.0)
   {
     allLedOff();
 
@@ -1192,12 +1195,11 @@ void updateOutput(
     );
 
     activeLedPin = LED_HIJAU_PIN;
-    pumpActive = false;
 
     return;
   }
 
-  if (durasiPompa < 18.0)
+  if (durasi < 18.0)
   {
     allLedOff();
 
@@ -1208,12 +1210,10 @@ void updateOutput(
 
     activeLedPin = LED_KUNING_PIN;
 
-    pumpStartTime = now;
+    ledStartTime = now;
 
-    pumpDurationMs =
-      (unsigned long)(durasiPompa * 1000.0);
-
-    pumpActive = true;
+    ledDurationMs =
+      (unsigned long)(durasi * 1000.0);
 
     return;
   }
@@ -1227,12 +1227,10 @@ void updateOutput(
 
   activeLedPin = LED_MERAH_PIN;
 
-  pumpStartTime = now;
+  ledStartTime = now;
 
-  pumpDurationMs =
-    (unsigned long)(durasiPompa * 1000.0);
-
-  pumpActive = true;
+  ledDurationMs =
+    (unsigned long)(durasi * 1000.0);
 }
 
 void setup()
@@ -1286,7 +1284,7 @@ void loop()
     float soilPercent =
       readSoilMoisturePercent();
 
-    float durasiPompa =
+    float durasi =
       fuzzyInference(
         soilPercent,
         lastTemperature
@@ -1301,21 +1299,21 @@ void loop()
     Serial.println(" %");
 
     updateOutput(
-      durasiPompa,
+      durasi,
       now
     );
   }
 
-  if (pumpActive)
+  if (activeLedPin != LED_HIJAU_PIN && activeLedPin != -1)
   {
-    if (now - pumpStartTime >= pumpDurationMs)
+    if (now - ledStartTime >= ledDurationMs)
     {
       digitalWrite(
         activeLedPin,
         LOW
       );
 
-      pumpActive = false;
+      activeLedPin = -1;
     }
   }
 
@@ -1396,7 +1394,7 @@ Nilai pada tabel harus diisi berdasarkan hasil pengukuran langsung selama percob
 
 \subsection{Analisis Percobaan}
 
-Analisis pada percobaan kedua berfokus pada hubungan antara perubahan input dan keluaran sistem. Perhatikan perubahan LED pada berbagai kondisi rockwool serta perubahan keluaran ketika suhu berubah akibat penggunaan hair dryer. Hasil pengamatan dibandingkan dengan kecenderungan yang dihasilkan oleh membership function dan rule yang telah dibuat.
+Analisis pada percobaan kedua berfokus pada hubungan antara perubahan input dan keluaran sistem. Perhatikan perubahan LED pada berbagai kondisi rockwool serta perubahan keluaran ketika suhu berubah akibat aliran udara dingin dan aliran udara panas. Hasil pengamatan dibandingkan dengan kecenderungan yang dihasilkan oleh membership function dan rule yang telah dibuat.
 
 \subsubsection*{Target Pengamatan}
 
