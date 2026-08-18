@@ -819,44 +819,96 @@ Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebaga
 \end{enumerate}
 
 \begin{lstlisting}[language=C++, caption={Program pembacaan sensor untuk Percobaan 1}, label={lst:percobaan1}]
-#include <Arduino.h>
 #include <DHT.h>
 
-#define DHT_PIN       4
-#define DHT_TYPE      DHT22
-#define SOIL_PIN      34
+#define SOIL_PIN 34
+
+#define DHT_PIN 4
+#define DHT_TYPE DHT22
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
+const unsigned long SOIL_INTERVAL_MS = 500;
+const unsigned long DHT_INTERVAL_MS  = 2000;
+
+unsigned long lastSoilReadTime = 0;
+unsigned long lastDHTReadTime = 0;
+
+float lastTemperature = 25.0;
+
+const int SOIL_DRY_RAW = 3000;
+const int SOIL_WET_RAW = 1200;
+
+float readSoilMoisturePercent()
+{
+  int raw = analogRead(SOIL_PIN);
+
+  float percent =
+    ((float)(SOIL_DRY_RAW - raw) /
+     (SOIL_DRY_RAW - SOIL_WET_RAW)) * 100.0;
+
+  percent = constrain(percent, 0, 100);
+
+  return percent;
+}
+
 void setup()
 {
-    Serial.begin(115200);
-    dht.begin();
+  Serial.begin(115200);
+
+  delay(500);
+
+  analogReadResolution(12);
+
+  dht.begin();
 }
 
 void loop()
 {
-    float temperature = dht.readTemperature();
-    int soilRaw = analogRead(SOIL_PIN);
+  unsigned long now = millis();
 
-    if (isnan(temperature)) {
-        Serial.println("Pembacaan DHT22 gagal.");
-        delay(1000);
-        return;
+  if (now - lastDHTReadTime >= DHT_INTERVAL_MS)
+  {
+    lastDHTReadTime = now;
+
+    float temperature = dht.readTemperature();
+
+    if (!isnan(temperature))
+    {
+      lastTemperature = temperature;
     }
+  }
+
+  if (now - lastSoilReadTime >= SOIL_INTERVAL_MS)
+  {
+    lastSoilReadTime = now;
+
+    float soilPercent = readSoilMoisturePercent();
 
     Serial.print("Suhu: ");
-    Serial.print(temperature);
-    Serial.print(" C | Soil Raw: ");
-    Serial.println(soilRaw);
+    Serial.print(lastTemperature, 1);
+    Serial.println(" C");
 
-    delay(1000);
+    Serial.print("Kelembapan: ");
+    Serial.print(soilPercent, 1);
+    Serial.println(" %");
+
+    Serial.println("--------------------");
+  }
+
+  delay(10);
 }
 \end{lstlisting}
 
-\placeholderfigure{5cm}{[GAMBAR: Wiring sensor DHT22 dan Capacitive Soil Moisture Sensor]}
-
-\placeholderfigure{4cm}{[GAMBAR: Tampilan pembacaan sensor pada Serial Monitor]}
+\begin{figure}[H]
+    \centering
+    \includegraphics[
+        width=0.85\textwidth,
+        keepaspectratio
+    ]{images/percobaan_1.jpg}
+    \caption{Wiring sensor DHT22 dan Capacitive Soil Moisture Sensor pada Percobaan 1}
+    \label{fig:wiring-percobaan1}
+\end{figure}
 
 \subsection{Analisis Percobaan}
 
@@ -930,157 +982,356 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
 \end{enumerate}
 
 \begin{lstlisting}[language=C++, caption={Program implementasi fuzzy logic untuk Percobaan 2}, label={lst:percobaan2}]
-#include <Arduino.h>
 #include <DHT.h>
 
-#define DHT_PIN       4
-#define DHT_TYPE      DHT22
-#define SOIL_PIN      34
+#define SOIL_PIN 34
 
-#define LED_RED       25
-#define LED_YELLOW    26
-#define LED_GREEN     27
+#define DHT_PIN 4
+#define DHT_TYPE DHT22
+
+#define LED_MERAH_PIN  25
+#define LED_KUNING_PIN 26
+#define LED_HIJAU_PIN  27
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
+const int SOIL_DRY_RAW = 3000;
+const int SOIL_WET_RAW = 1200;
+
+const unsigned long SOIL_INTERVAL_MS = 500;
+const unsigned long DHT_INTERVAL_MS  = 2000;
+
+unsigned long lastSoilReadTime = 0;
+unsigned long lastDHTReadTime  = 0;
+
+float lastTemperature = 25.0;
+
+bool pumpActive = false;
+
+unsigned long pumpStartTime = 0;
+unsigned long pumpDurationMs = 0;
+
+int activeLedPin = -1;
+
 float trimf(float x, float a, float b, float c)
 {
-    if (x <= a || x >= c) {
-        return 0.0;
-    }
+  if (x <= a || x >= c)
+    return 0.0;
 
-    if (x == b) {
-        return 1.0;
-    }
+  if (x == b)
+    return 1.0;
 
-    if (x < b) {
-        return (x - a) / (b - a);
-    }
+  if (x < b)
+    return (x - a) / (b - a);
 
-    return (c - x) / (c - b);
+  return (c - x) / (c - b);
 }
 
-void setLED(int outputClass)
+float mfKering(float x)
 {
-    digitalWrite(LED_RED, LOW);
-    digitalWrite(LED_YELLOW, LOW);
-    digitalWrite(LED_GREEN, LOW);
+  if (x <= 10)
+    return 1.0;
 
-    if (outputClass == 0) {
-        digitalWrite(LED_RED, HIGH);
-    }
-    else if (outputClass == 50) {
-        digitalWrite(LED_YELLOW, HIGH);
-    }
-    else if (outputClass == 100) {
-        digitalWrite(LED_GREEN, HIGH);
-    }
+  if (x >= 35)
+    return 0.0;
+
+  return (35.0 - x) / 25.0;
+}
+
+float mfLembab(float x)
+{
+  return trimf(x, 20, 45, 70);
+}
+
+float mfBasah(float x)
+{
+  return trimf(x, 55, 100, 110);
+}
+
+float mfDingin(float x)
+{
+  return trimf(x, 15, 20, 28);
+}
+
+float mfNormal(float x)
+{
+  return trimf(x, 25, 28.5, 32);
+}
+
+float mfPanas(float x)
+{
+  return trimf(x, 30, 40, 45);
+}
+
+float mfSingkat(float x)
+{
+  return trimf(x, -5, 0, 10);
+}
+
+float mfSedang(float x)
+{
+  return trimf(x, 8, 14, 20);
+}
+
+float mfLama(float x)
+{
+  return trimf(x, 18, 30, 35);
+}
+
+float alphaSingkat = 0;
+float alphaSedang  = 0;
+float alphaLama    = 0;
+
+float fuzzyInference(float soil, float temp)
+{
+  float kering = mfKering(soil);
+  float lembab = mfLembab(soil);
+  float basah  = mfBasah(soil);
+
+  float dingin = mfDingin(temp);
+  float normal = mfNormal(temp);
+  float panas  = mfPanas(temp);
+
+  float r1 = min(kering, dingin);
+  float r2 = min(kering, normal);
+  float r3 = min(kering, panas);
+
+  float r4 = min(lembab, dingin);
+  float r5 = min(lembab, normal);
+  float r6 = min(lembab, panas);
+
+  float r7 = min(basah, dingin);
+  float r8 = min(basah, normal);
+  float r9 = min(basah, panas);
+
+  alphaSingkat = max(r7, r8);
+
+  alphaSedang = max(
+    r4,
+    max(r5, max(r6, r9))
+  );
+
+  alphaLama = max(
+    r1,
+    max(r2, r3)
+  );
+
+  float sumWeighted = 0.0;
+  float sumMembership = 0.0;
+
+  for (float y = 0; y <= 30; y += 0.5)
+  {
+    float clipSingkat = min(
+      alphaSingkat,
+      mfSingkat(y)
+    );
+
+    float clipSedang = min(
+      alphaSedang,
+      mfSedang(y)
+    );
+
+    float clipLama = min(
+      alphaLama,
+      mfLama(y)
+    );
+
+    float aggregated = max(
+      clipSingkat,
+      max(clipSedang, clipLama)
+    );
+
+    sumWeighted += aggregated * y;
+    sumMembership += aggregated;
+  }
+
+  if (sumMembership == 0)
+  {
+    return 0;
+  }
+
+  return sumWeighted / sumMembership;
+}
+
+float readSoilMoisturePercent()
+{
+  int raw = analogRead(SOIL_PIN);
+
+  float percent =
+    ((float)(SOIL_DRY_RAW - raw) /
+     (SOIL_DRY_RAW - SOIL_WET_RAW)) * 100.0;
+
+  percent = constrain(
+    percent,
+    0,
+    100
+  );
+
+  return percent;
+}
+
+void allLedOff()
+{
+  digitalWrite(LED_MERAH_PIN, LOW);
+  digitalWrite(LED_KUNING_PIN, LOW);
+  digitalWrite(LED_HIJAU_PIN, LOW);
+}
+
+void updateOutput(
+  float durasiPompa,
+  unsigned long now
+)
+{
+  if (durasiPompa < 8.0)
+  {
+    allLedOff();
+
+    digitalWrite(
+      LED_HIJAU_PIN,
+      HIGH
+    );
+
+    activeLedPin = LED_HIJAU_PIN;
+    pumpActive = false;
+
+    return;
+  }
+
+  if (durasiPompa < 18.0)
+  {
+    allLedOff();
+
+    digitalWrite(
+      LED_KUNING_PIN,
+      HIGH
+    );
+
+    activeLedPin = LED_KUNING_PIN;
+
+    pumpStartTime = now;
+
+    pumpDurationMs =
+      (unsigned long)(durasiPompa * 1000.0);
+
+    pumpActive = true;
+
+    return;
+  }
+
+  allLedOff();
+
+  digitalWrite(
+    LED_MERAH_PIN,
+    HIGH
+  );
+
+  activeLedPin = LED_MERAH_PIN;
+
+  pumpStartTime = now;
+
+  pumpDurationMs =
+    (unsigned long)(durasiPompa * 1000.0);
+
+  pumpActive = true;
 }
 
 void setup()
 {
-    Serial.begin(115200);
-    dht.begin();
+  Serial.begin(115200);
 
-    pinMode(LED_RED, OUTPUT);
-    pinMode(LED_YELLOW, OUTPUT);
-    pinMode(LED_GREEN, OUTPUT);
+  delay(500);
 
-    setLED(50);
+  pinMode(
+    LED_MERAH_PIN,
+    OUTPUT
+  );
+
+  pinMode(
+    LED_KUNING_PIN,
+    OUTPUT
+  );
+
+  pinMode(
+    LED_HIJAU_PIN,
+    OUTPUT
+  );
+
+  allLedOff();
+
+  analogReadResolution(12);
+
+  dht.begin();
 }
 
 void loop()
 {
+  unsigned long now = millis();
+
+  if (now - lastDHTReadTime >= DHT_INTERVAL_MS)
+  {
+    lastDHTReadTime = now;
+
     float temperature = dht.readTemperature();
-    int soilRaw = analogRead(SOIL_PIN);
 
-    if (isnan(temperature)) {
-        Serial.println("Pembacaan DHT22 gagal.");
-        delay(1000);
-        return;
+    if (!isnan(temperature))
+    {
+      lastTemperature = temperature;
     }
+  }
 
-    /*
-     * Skala soilRaw perlu disesuaikan berdasarkan
-     * hasil pengukuran sensor aktual.
-     */
-    float soilValue = map(soilRaw, 4095, 0, 0, 100);
+  if (now - lastSoilReadTime >= SOIL_INTERVAL_MS)
+  {
+    lastSoilReadTime = now;
 
-    // Membership suhu.
-    float tempLow  = trimf(temperature, 15, 20, 25);
-    float tempMed  = trimf(temperature, 20, 25, 30);
-    float tempHigh = trimf(temperature, 25, 30, 35);
+    float soilPercent =
+      readSoilMoisturePercent();
 
-    // Membership kelembapan tanah.
-    float soilDry  = trimf(soilValue, 0, 20, 40);
-    float soilMed  = trimf(soilValue, 30, 50, 70);
-    float soilWet  = trimf(soilValue, 60, 80, 100);
+    float durasiPompa =
+      fuzzyInference(
+        soilPercent,
+        lastTemperature
+      );
 
-    // Kekuatan rule.
-    float r1 = min(tempLow,  soilDry);
-    float r2 = min(tempLow,  soilMed);
-    float r3 = min(tempLow,  soilWet);
+    Serial.print("Suhu: ");
+    Serial.print(lastTemperature, 1);
+    Serial.println(" C");
 
-    float r4 = min(tempMed,  soilDry);
-    float r5 = min(tempMed,  soilMed);
-    float r6 = min(tempMed,  soilWet);
+    Serial.print("Kelembapan: ");
+    Serial.print(soilPercent, 1);
+    Serial.println(" %");
 
-    float r7 = min(tempHigh, soilDry);
-    float r8 = min(tempHigh, soilMed);
-    float r9 = min(tempHigh, soilWet);
+    updateOutput(
+      durasiPompa,
+      now
+    );
+  }
 
-    /*
-     * Output singleton:
-     * Merah  = 0
-     * Kuning = 50
-     * Hijau  = 100
-     */
-    float weightedOutput =
-        (r1 * 0)  +
-        (r2 * 50) +
-        (r3 * 50) +
-        (r4 * 50) +
-        (r5 * 100) +
-        (r6 * 100) +
-        (r7 * 0) +
-        (r8 * 50) +
-        (r9 * 50);
+  if (pumpActive)
+  {
+    if (now - pumpStartTime >= pumpDurationMs)
+    {
+      digitalWrite(
+        activeLedPin,
+        LOW
+      );
 
-    float totalRule =
-        r1 + r2 + r3 +
-        r4 + r5 + r6 +
-        r7 + r8 + r9;
-
-    if (totalRule <= 0.0) {
-        Serial.println("Tidak ada rule aktif.");
-        setLED(50);
+      pumpActive = false;
     }
-    else {
-        float output = weightedOutput / totalRule;
+  }
 
-        if (output < 25) {
-            setLED(0);
-        }
-        else if (output < 75) {
-            setLED(50);
-        }
-        else {
-            setLED(100);
-        }
-
-        Serial.print("Suhu: ");
-        Serial.print(temperature);
-        Serial.print(" C | Soil: ");
-        Serial.print(soilValue);
-        Serial.print(" | Output: ");
-        Serial.println(output);
-    }
-
-    delay(1000);
+  delay(10);
 }
 \end{lstlisting}
 
-\placeholderfigure{5cm}{[GAMBAR: Wiring lengkap ESP32, DHT22, Soil Moisture Sensor, dan LED]}
+\begin{figure}[H]
+    \centering
+    \includegraphics[
+        width=0.85\textwidth,
+        keepaspectratio
+    ]{images/percobaan_2.jpg}
+    \caption{Wiring lengkap ESP32, DHT22, Capacitive Soil Moisture Sensor, dan LED pada Percobaan 2}
+    \label{fig:wiring-percobaan2}
+\end{figure}
 
 \subsection{Tabel Pengamatan}
 
