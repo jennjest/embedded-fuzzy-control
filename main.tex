@@ -692,21 +692,21 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
         \midrule
 
         Dingin &
-        15 &
-        20 &
+        24 &
+        24 &
         28 &
         Fungsi keanggotaan suhu dingin \\
 
         Normal &
         25 &
-        28,5 &
-        32 &
+        30 &
+        45 &
         Fungsi keanggotaan suhu normal \\
 
         Panas &
-        30 &
         40 &
-        45 &
+        50 &
+        60 &
         Fungsi keanggotaan suhu panas \\
 
         \bottomrule
@@ -727,21 +727,21 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
         \midrule
 
         Kering &
-        10 &
-        10 &
+        20 &
+        20 &
         35 &
         Fungsi keanggotaan kelembapan kering \\
 
         Lembap &
-        20 &
-        45 &
-        70 &
+        25 &
+        35 &
+        50 &
         Fungsi keanggotaan kelembapan lembap \\
 
         Basah &
-        55 &
-        100 &
-        110 &
+        45 &
+        70 &
+        70 &
         Fungsi keanggotaan kelembapan basah \\
 
         \bottomrule
@@ -750,45 +750,113 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
 
 Penguji tidak perlu menghitung seluruh kombinasi membership function secara manual. Parameter membership function telah dimasukkan ke dalam program, sehingga ESP32 melakukan proses fuzzifikasi berdasarkan nilai suhu dan kelembapan tanah yang terbaca oleh sensor.
 
-```latex
 \subsection{Fuzzy Rule}
 
-Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelembapan media. Setiap kombinasi input menghasilkan salah satu dari tiga keluaran fuzzy, yaitu singkat, sedang, atau lama. Keluaran fuzzy tersebut kemudian diproses melalui tahap agregasi dan defuzzifikasi untuk memperoleh nilai output akhir yang digunakan dalam menentukan LED.
+Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelembapan media. Setiap kombinasi input menghasilkan salah satu dari tiga keluaran fuzzy, yaitu buruk, sedang, atau baik. Keluaran fuzzy tersebut kemudian digunakan dalam proses inferensi dan defuzzifikasi untuk memperoleh nilai output akhir yang digunakan dalam menentukan LED.
 
 \begin{table}[H]
     \centering
-    \caption{Kategori output sistem}
-    \label{tab:output}
-    \begin{tabularx}{\textwidth}{c c c X}
+    \caption{Rule base fuzzy}
+    \label{tab:fuzzy-rule}
+    \small
+    \renewcommand{\arraystretch}{1.15}
+
+    \begin{tabularx}{\textwidth}{c c c c c X}
         \toprule
+        \textbf{Rule} &
+        \textbf{Suhu} &
+        \textbf{Kelembapan} &
         \textbf{Output Fuzzy} &
-        \textbf{Rentang Nilai} &
-        \textbf{LED} &
-        \textbf{Makna} \\
+        \textbf{Nilai} &
+        \textbf{LED} \\
         \midrule
 
-        Singkat &
-        $<8$ &
-        Hijau &
-        Kondisi relatif baik \\
+        R1 &
+        Dingin &
+        Kering &
+        Buruk &
+        0 &
+        Merah \\
 
+        R2 &
+        Dingin &
+        Lembap &
         Sedang &
-        $8 \leq y < 18$ &
-        Kuning &
-        Kondisi perlu diperhatikan \\
+        50 &
+        Kuning \\
 
-        Lama &
-        $y \geq 18$ &
-        Merah &
-        Kondisi kurang sesuai \\
+        R3 &
+        Dingin &
+        Basah &
+        Baik &
+        100 &
+        Hijau \\
+
+        R4 &
+        Normal &
+        Kering &
+        Buruk &
+        0 &
+        Merah \\
+
+        R5 &
+        Normal &
+        Lembap &
+        Baik &
+        100 &
+        Hijau \\
+
+        R6 &
+        Normal &
+        Basah &
+        Baik &
+        100 &
+        Hijau \\
+
+        R7 &
+        Panas &
+        Kering &
+        Buruk &
+        0 &
+        Merah \\
+
+        R8 &
+        Panas &
+        Lembap &
+        Sedang &
+        50 &
+        Kuning \\
+
+        R9 &
+        Panas &
+        Basah &
+        Sedang &
+        50 &
+        Kuning \\
 
         \bottomrule
     \end{tabularx}
 \end{table}
 
-Aturan R1, R2, dan R3 menunjukkan bahwa kondisi media yang kering menghasilkan output fuzzy lama sehingga sistem diarahkan menuju LED merah. Aturan R4, R5, dan R6 menghasilkan output fuzzy sedang yang dipetakan ke LED kuning. Sementara itu, R7 dan R8 menghasilkan output fuzzy singkat yang dipetakan ke LED hijau, sedangkan R9 menghasilkan output fuzzy sedang yang dipetakan ke LED kuning.
+Setiap rule menggunakan operator AND untuk menggabungkan kondisi suhu dan kelembapan media. Kekuatan setiap rule ditentukan menggunakan nilai minimum dari derajat keanggotaan kedua input. Misalnya, jika derajat keanggotaan suhu normal adalah 0,6 dan derajat keanggotaan kelembapan lembap adalah 0,8, maka kekuatan rule yang menggabungkan kedua kondisi tersebut adalah 0,6.
 
-Output fuzzy pada tabel tidak langsung menjadi nilai LED, tetapi digunakan dalam proses inferensi dan defuzzifikasi. Setelah proses tersebut menghasilkan satu nilai output akhir, sistem menentukan LED berdasarkan rentang nilai yang telah ditetapkan pada program.
+Rule R1, R4, dan R7 menghasilkan output buruk dengan nilai representatif 0 sehingga diarahkan ke LED merah. Rule R2 dan R8 menghasilkan output sedang dengan nilai representatif 50 sehingga diarahkan ke LED kuning. Sementara itu, rule R3, R5, dan R6 menghasilkan output baik dengan nilai representatif 100 sehingga diarahkan ke LED hijau. Rule R9 menghasilkan output sedang dengan nilai representatif 50 karena kondisi suhu panas tetap perlu diperhatikan meskipun kelembapan media berada pada kategori basah.
+
+Nilai output pada tabel merupakan nilai representatif yang digunakan dalam proses defuzzifikasi. Nilai tersebut belum menjadi hasil akhir sistem karena beberapa rule dapat aktif secara bersamaan. Hasil akhir diperoleh dengan menggabungkan kekuatan rule yang aktif menggunakan metode rata-rata berbobot.
+
+Nilai akhir kemudian dipetakan ke indikator LED berdasarkan rentang berikut:
+
+\[
+0 \leq z < 25 \rightarrow \text{LED Merah}
+\]
+
+\[
+25 \leq z < 75 \rightarrow \text{LED Kuning}
+\]
+
+\[
+75 \leq z \leq 100 \rightarrow \text{LED Hijau}
+\]
 
 % =========================================================
 % 6. PERCOBAAN 1
@@ -799,27 +867,21 @@ Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebaga
 
 \subsection{Prosedur Percobaan}
 
+\subsection{Prosedur Percobaan}
+
 \begin{enumerate}
-    \item Siapkan ESP32, DHT22, Capacitive Soil Moisture Sensor, breadboard, kabel jumper, rockwool, dan sumber aliran udara dingin serta panas.
+    \item Siapkan ESP32, DHT22, Capacitive Soil Moisture Sensor, breadboard, kabel jumper, rockwool, dan sumber udara dengan kondisi suhu yang berbeda.
     \item Rangkai DHT22 dan Capacitive Soil Moisture Sensor sesuai konfigurasi yang digunakan.
     \item Hubungkan ESP32 ke laptop.
     \item Buka program pembacaan sensor.
     \item Sesuaikan nomor pin pada program dengan wiring aktual.
     \item Upload program ke ESP32.
-    \item Buka Serial Monitor.
-    \item Jalankan sistem pada kondisi suhu ruangan dan catat nilai suhu.
-    \item Siapkan rockwool dalam kondisi kering tanpa tambahan air.
-    \item Catat nilai pembacaan kelembapan tanah pada kondisi tersebut.
-    \item Siapkan rockwool dalam kondisi lembap dengan penambahan air sebanyak 9 mL.
-    \item Tunggu hingga air tersebar pada rockwool, kemudian catat nilai pembacaan kelembapan tanah.
-    \item Siapkan rockwool dalam kondisi basah dengan menambahkan air secukupnya hingga rockwool benar-benar basah.
-    \item Catat kembali nilai pembacaan kelembapan tanah.
-    \item Alirkan udara dingin ke area sensor dengan jarak yang aman.
-    \item Amati perubahan nilai suhu yang terbaca pada Serial Monitor.
-    \item Catat nilai suhu pada kondisi udara dingin.
-    \item Alirkan udara panas ke area sensor dengan jarak yang aman.
-    \item Amati kembali perubahan nilai suhu yang terbaca pada Serial Monitor.
-    \item Catat nilai suhu pada kondisi udara panas.
+    \item Buka Serial Monitor dan pastikan data sensor dapat terbaca.
+    \item Lakukan pengamatan pada beberapa kondisi media dengan tingkat kelembapan yang berbeda.
+    \item Catat nilai kelembapan media yang terbaca pada setiap kondisi.
+    \item Amati pembacaan suhu pada kondisi lingkungan yang berbeda.
+    \item Catat nilai suhu yang terbaca pada setiap kondisi.
+    \item Bandingkan hasil pembacaan sensor pada seluruh kondisi pengamatan.
     \item Catat seluruh hasil pengamatan.
 \end{enumerate}
 
@@ -833,75 +895,38 @@ Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebaga
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
-const unsigned long SOIL_INTERVAL_MS = 500;
-const unsigned long DHT_INTERVAL_MS  = 2000;
-
-unsigned long lastSoilReadTime = 0;
-unsigned long lastDHTReadTime = 0;
-
-float lastTemperature = 25.0;
-
 const int SOIL_DRY_RAW = 3000;
 const int SOIL_WET_RAW = 1200;
-
-float readSoilMoisturePercent()
-{
-  int raw = analogRead(SOIL_PIN);
-
-  float percent =
-    ((float)(SOIL_DRY_RAW - raw) /
-     (SOIL_DRY_RAW - SOIL_WET_RAW)) * 100.0;
-
-  percent = constrain(percent, 0, 100);
-
-  return percent;
-}
 
 void setup()
 {
   Serial.begin(115200);
-
-  delay(500);
-
-  analogReadResolution(12);
-
   dht.begin();
 }
 
 void loop()
 {
-  unsigned long now = millis();
+  float temperature = dht.readTemperature();
 
-  if (now - lastDHTReadTime >= DHT_INTERVAL_MS)
-  {
-    lastDHTReadTime = now;
+  int raw = analogRead(SOIL_PIN);
 
-    float temperature = dht.readTemperature();
+  float soilPercent =
+    ((float)(SOIL_DRY_RAW - raw) /
+     (SOIL_DRY_RAW - SOIL_WET_RAW)) * 100.0;
 
-    if (!isnan(temperature))
-    {
-      lastTemperature = temperature;
-    }
-  }
+  soilPercent = constrain(soilPercent, 0, 100);
 
-  if (now - lastSoilReadTime >= SOIL_INTERVAL_MS)
-  {
-    lastSoilReadTime = now;
+  Serial.print("Suhu: ");
+  Serial.print(temperature, 1);
+  Serial.println(" C");
 
-    float soilPercent = readSoilMoisturePercent();
+  Serial.print("Kelembapan Tanah: ");
+  Serial.print(soilPercent, 1);
+  Serial.println(" %");
 
-    Serial.print("Suhu: ");
-    Serial.print(lastTemperature, 1);
-    Serial.println(" C");
+  Serial.println("--------------------");
 
-    Serial.print("Kelembapan: ");
-    Serial.print(soilPercent, 1);
-    Serial.println(" %");
-
-    Serial.println("--------------------");
-  }
-
-  delay(10);
+  delay(2000);
 }
 \end{lstlisting}
 
@@ -925,8 +950,7 @@ Analisis dilakukan dengan membandingkan pembacaan sensor pada kondisi rockwool y
     \item[$\checkbox$] Data suhu dapat terbaca pada Serial Monitor.
     \item[$\checkbox$] Data kelembapan tanah dapat terbaca.
     \item[$\checkbox$] Nilai sensor kelembapan berubah pada setiap kondisi rockwool.
-    \item[$\checkbox$] Nilai suhu berubah ketika sensor terkena aliran udara dingin.
-    \item[$\checkbox$] Nilai suhu berubah ketika sensor terkena aliran udara panas.
+    \item[$\checkbox$] Nilai suhu berubah ketika sensor berada di kondisi suhu berbeda.
     \item[$\checkbox$] Pembacaan sensor dapat digunakan sebagai input sistem.
     \item[$\checkbox$] Tidak terdapat pembacaan sensor yang tidak wajar selama pengamatan.
 \end{itemize}
@@ -955,6 +979,8 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
 
 \subsection{Prosedur Percobaan}
 
+\subsection{Prosedur Percobaan}
+
 \begin{enumerate}
     \item Lanjutkan dari rangkaian Percobaan 1.
     \item Pastikan seluruh koneksi sensor masih terpasang dengan benar.
@@ -963,27 +989,13 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
     \item Masukkan parameter membership function ke dalam program.
     \item Masukkan rule base ke dalam program.
     \item Upload program ke ESP32.
-    \item Uji kondisi suhu ruangan dengan rockwool kering.
-    \item Catat nilai suhu, kelembapan tanah, output, dan LED pada Tabel~\ref{tab:pengamatan}.
-    \item Uji kondisi suhu ruangan dengan rockwool lembap.
-    \item Catat hasil pengamatan.
-    \item Uji kondisi suhu ruangan dengan rockwool basah.
-    \item Catat hasil pengamatan.
-    \item Alirkan udara dingin ke area sensor dengan jarak yang aman.
-    \item Uji kondisi udara dingin dengan rockwool kering.
-    \item Catat hasil pengamatan.
-    \item Uji kondisi udara dingin dengan rockwool lembap.
-    \item Catat hasil pengamatan.
-    \item Uji kondisi udara dingin dengan rockwool basah.
-    \item Catat hasil pengamatan.
-    \item Alirkan udara panas ke area sensor dengan jarak yang aman.
-    \item Uji kondisi udara panas dengan rockwool kering.
-    \item Catat hasil pengamatan.
-    \item Uji kondisi udara panas dengan rockwool lembap.
-    \item Catat hasil pengamatan.
-    \item Uji kondisi udara panas dengan rockwool basah.
-    \item Catat hasil pengamatan.
-    \item Bandingkan hasil seluruh kondisi dengan kecenderungan rule yang telah dirancang.
+    \item Buka Serial Monitor dan pastikan data suhu, kelembapan media, output, dan status LED dapat terbaca.
+    \item Lakukan pengujian menggunakan beberapa kondisi media dengan tingkat kelembapan yang berbeda.
+    \item Lakukan pengujian pada beberapa kondisi suhu yang berbeda.
+    \item Catat nilai suhu, kelembapan media, output, dan LED pada setiap kondisi pengujian.
+    \item Bandingkan perubahan output dan LED terhadap perubahan kondisi input.
+    \item Bandingkan hasil pengamatan dengan rule base yang telah dirancang.
+    \item Catat seluruh hasil pengamatan.
 \end{enumerate}
 
 \begin{lstlisting}[language=C++, caption={Program implementasi fuzzy logic untuk Percobaan 2}, label={lst:percobaan2}]
@@ -994,330 +1006,199 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
 #define DHT_PIN 4
 #define DHT_TYPE DHT22
 
-#define LED_MERAH_PIN  25
+#define LED_MERAH_PIN 25
 #define LED_KUNING_PIN 26
-#define LED_HIJAU_PIN  27
+#define LED_HIJAU_PIN 27
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
 const int SOIL_DRY_RAW = 3000;
 const int SOIL_WET_RAW = 1200;
 
-const unsigned long SOIL_INTERVAL_MS = 500;
-const unsigned long DHT_INTERVAL_MS  = 2000;
 
-unsigned long lastSoilReadTime = 0;
-unsigned long lastDHTReadTime  = 0;
-
-float lastTemperature = 25.0;
-
-unsigned long ledStartTime = 0;
-unsigned long ledDurationMs = 0;
-
-int activeLedPin = -1;
-
-float trimf(float x, float a, float b, float c)
+float suhuDingin(float x)
 {
-  if (x <= a || x >= c)
-    return 0.0;
+  if (x <= 24) return 1.0;
+  if (x >= 28) return 0.0;
 
-  if (x == b)
-    return 1.0;
-
-  if (x < b)
-    return (x - a) / (b - a);
-
-  return (c - x) / (c - b);
+  return (28.0 - x) / (28.0 - 24.0);
 }
 
-float mfKering(float x)
+float suhuNormal(float x)
 {
-  if (x <= 10)
-    return 1.0;
+  if (x <= 25 || x >= 45) return 0.0;
+  if (x == 30) return 1.0;
 
-  if (x >= 35)
-    return 0.0;
+  if (x < 30)
+    return (x - 25.0) / (30.0 - 25.0);
 
-  return (35.0 - x) / 25.0;
+  return (45.0 - x) / (45.0 - 30.0);
 }
 
-float mfLembab(float x)
+float suhuPanas(float x)
 {
-  return trimf(x, 20, 45, 70);
+  if (x <= 40) return 0.0;
+  if (x >= 60) return 1.0;
+
+  return (x - 40.0) / (60.0 - 40.0);
 }
 
-float mfBasah(float x)
+
+float tanahKering(float x)
 {
-  return trimf(x, 55, 100, 110);
+  if (x <= 20) return 1.0;
+  if (x >= 35) return 0.0;
+
+  return (35.0 - x) / (35.0 - 20.0);
 }
 
-float mfDingin(float x)
+float tanahLembap(float x)
 {
-  return trimf(x, 15, 20, 28);
+  if (x <= 25 || x >= 50) return 0.0;
+  if (x == 35) return 1.0;
+
+  if (x < 35)
+    return (x - 25.0) / (35.0 - 25.0);
+
+  return (50.0 - x) / (50.0 - 35.0);
 }
 
-float mfNormal(float x)
+float tanahBasah(float x)
 {
-  return trimf(x, 25, 28.5, 32);
+  if (x <= 45) return 0.0;
+  if (x >= 70) return 1.0;
+  return (x - 45.0) / (70.0 - 45.0);
 }
 
-float mfPanas(float x)
-{
-  return trimf(x, 30, 40, 45);
-}
 
-float mfSingkat(float x)
-{
-  return trimf(x, -5, 0, 10);
-}
-
-float mfSedang(float x)
-{
-  return trimf(x, 8, 14, 20);
-}
-
-float mfLama(float x)
-{
-  return trimf(x, 18, 30, 35);
-}
-
-float alphaSingkat = 0;
-float alphaSedang  = 0;
-float alphaLama    = 0;
-
-float fuzzyInference(float soil, float temp)
-{
-  float kering = mfKering(soil);
-  float lembab = mfLembab(soil);
-  float basah  = mfBasah(soil);
-
-  float dingin = mfDingin(temp);
-  float normal = mfNormal(temp);
-  float panas  = mfPanas(temp);
-
-  float r1 = min(kering, dingin);
-  float r2 = min(kering, normal);
-  float r3 = min(kering, panas);
-
-  float r4 = min(lembab, dingin);
-  float r5 = min(lembab, normal);
-  float r6 = min(lembab, panas);
-
-  float r7 = min(basah, dingin);
-  float r8 = min(basah, normal);
-  float r9 = min(basah, panas);
-
-  alphaSingkat = max(r7, r8);
-
-  alphaSedang = max(
-    r4,
-    max(r5, max(r6, r9))
-  );
-
-  alphaLama = max(
-    r1,
-    max(r2, r3)
-  );
-
-  float sumWeighted = 0.0;
-  float sumMembership = 0.0;
-
-  for (float y = 0; y <= 30; y += 0.5)
-  {
-    float clipSingkat = min(
-      alphaSingkat,
-      mfSingkat(y)
-    );
-
-    float clipSedang = min(
-      alphaSedang,
-      mfSedang(y)
-    );
-
-    float clipLama = min(
-      alphaLama,
-      mfLama(y)
-    );
-
-    float aggregated = max(
-      clipSingkat,
-      max(clipSedang, clipLama)
-    );
-
-    sumWeighted += aggregated * y;
-    sumMembership += aggregated;
-  }
-
-  if (sumMembership == 0)
-  {
-    return 0;
-  }
-
-  return sumWeighted / sumMembership;
-}
-
-float readSoilMoisturePercent()
-{
-  int raw = analogRead(SOIL_PIN);
-
-  float percent =
-    ((float)(SOIL_DRY_RAW - raw) /
-     (SOIL_DRY_RAW - SOIL_WET_RAW)) * 100.0;
-
-  percent = constrain(
-    percent,
-    0,
-    100
-  );
-
-  return percent;
-}
-
-void allLedOff()
+void setLED(int ledPin)
 {
   digitalWrite(LED_MERAH_PIN, LOW);
   digitalWrite(LED_KUNING_PIN, LOW);
   digitalWrite(LED_HIJAU_PIN, LOW);
+
+  digitalWrite(ledPin, HIGH);
 }
 
-void updateOutput(
-  float durasi,
-  unsigned long now
-)
-{
-  if (durasi < 8.0)
-  {
-    allLedOff();
-
-    digitalWrite(
-      LED_HIJAU_PIN,
-      HIGH
-    );
-
-    activeLedPin = LED_HIJAU_PIN;
-
-    return;
-  }
-
-  if (durasi < 18.0)
-  {
-    allLedOff();
-
-    digitalWrite(
-      LED_KUNING_PIN,
-      HIGH
-    );
-
-    activeLedPin = LED_KUNING_PIN;
-
-    ledStartTime = now;
-
-    ledDurationMs =
-      (unsigned long)(durasi * 1000.0);
-
-    return;
-  }
-
-  allLedOff();
-
-  digitalWrite(
-    LED_MERAH_PIN,
-    HIGH
-  );
-
-  activeLedPin = LED_MERAH_PIN;
-
-  ledStartTime = now;
-
-  ledDurationMs =
-    (unsigned long)(durasi * 1000.0);
-}
 
 void setup()
 {
   Serial.begin(115200);
 
-  delay(500);
-
-  pinMode(
-    LED_MERAH_PIN,
-    OUTPUT
-  );
-
-  pinMode(
-    LED_KUNING_PIN,
-    OUTPUT
-  );
-
-  pinMode(
-    LED_HIJAU_PIN,
-    OUTPUT
-  );
-
-  allLedOff();
-
-  analogReadResolution(12);
-
   dht.begin();
+
+  pinMode(LED_MERAH_PIN, OUTPUT);
+  pinMode(LED_KUNING_PIN, OUTPUT);
+  pinMode(LED_HIJAU_PIN, OUTPUT);
+
+  digitalWrite(LED_MERAH_PIN, LOW);
+  digitalWrite(LED_KUNING_PIN, LOW);
+  digitalWrite(LED_HIJAU_PIN, LOW);
 }
+
 
 void loop()
 {
-  unsigned long now = millis();
+  float temperature = dht.readTemperature();
 
-  if (now - lastDHTReadTime >= DHT_INTERVAL_MS)
+  int rawSoil = analogRead(SOIL_PIN);
+
+  float soilPercent =
+    ((float)(SOIL_DRY_RAW - rawSoil) /
+     (SOIL_DRY_RAW - SOIL_WET_RAW)) * 100.0;
+
+  soilPercent = constrain(soilPercent, 0, 100);
+
+  if (isnan(temperature))
   {
-    lastDHTReadTime = now;
-
-    float temperature = dht.readTemperature();
-
-    if (!isnan(temperature))
-    {
-      lastTemperature = temperature;
-    }
+    Serial.println("Gagal membaca DHT22");
+    delay(2000);
+    return;
   }
 
-  if (now - lastSoilReadTime >= SOIL_INTERVAL_MS)
+
+  float dingin = suhuDingin(temperature);
+  float normal = suhuNormal(temperature);
+  float panas  = suhuPanas(temperature);
+
+  float kering = tanahKering(soilPercent);
+  float lembap = tanahLembap(soilPercent);
+  float basah  = tanahBasah(soilPercent);
+
+  
+  float r1 = min(dingin, kering);
+  float r2 = min(dingin, lembap);
+  float r3 = min(dingin, basah);
+
+  float r4 = min(normal, kering);
+  float r5 = min(normal, lembap);
+  float r6 = min(normal, basah);
+
+  float r7 = min(panas, kering);
+  float r8 = min(panas, lembap);
+  float r9 = min(panas, basah);
+
+
+  float numerator =
+      (r1 * 0)   +
+      (r2 * 50)  +
+      (r3 * 100) +
+      (r4 * 0)   +
+      (r5 * 100) +
+      (r6 * 100) +
+      (r7 * 0)   +
+      (r8 * 50)  +
+      (r9 * 50);
+
+  float denominator =
+      r1 + r2 + r3 +
+      r4 + r5 + r6 +
+      r7 + r8 + r9;
+
+  float output = 0;
+
+  if (denominator > 0)
   {
-    lastSoilReadTime = now;
-
-    float soilPercent =
-      readSoilMoisturePercent();
-
-    float durasi =
-      fuzzyInference(
-        soilPercent,
-        lastTemperature
-      );
-
-    Serial.print("Suhu: ");
-    Serial.print(lastTemperature, 1);
-    Serial.println(" C");
-
-    Serial.print("Kelembapan: ");
-    Serial.print(soilPercent, 1);
-    Serial.println(" %");
-
-    updateOutput(
-      durasi,
-      now
-    );
+    output = numerator / denominator;
   }
 
-  if (activeLedPin != LED_HIJAU_PIN && activeLedPin != -1)
-  {
-    if (now - ledStartTime >= ledDurationMs)
-    {
-      digitalWrite(
-        activeLedPin,
-        LOW
-      );
 
-      activeLedPin = -1;
-    }
+  String ledStatus;
+
+  if (output >= 75)
+  {
+    setLED(LED_HIJAU_PIN);
+    ledStatus = "HIJAU";
+  }
+  else if (output >= 25)
+  {
+    setLED(LED_KUNING_PIN);
+    ledStatus = "KUNING";
+  }
+  else
+  {
+    setLED(LED_MERAH_PIN);
+    ledStatus = "MERAH";
   }
 
-  delay(10);
+
+  Serial.print("Suhu: ");
+  Serial.print(temperature, 1);
+  Serial.println(" C");
+
+  Serial.print("Kelembapan Tanah: ");
+  Serial.print(soilPercent, 1);
+  Serial.println(" %");
+
+  Serial.print("Output: ");
+  Serial.println(output, 1);
+
+  Serial.print("LED: ");
+  Serial.println(ledStatus);
+
+  Serial.println("--------------------");
+
+  delay(2000);
 }
 \end{lstlisting}
 
@@ -1369,6 +1250,26 @@ void loop()
         5 &
         Udara dingin + rockwool lembap &
         & & & & \\
+
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Tabel pengamatan kondisi lingkungan (lanjutan)}
+    \small
+
+    \begin{tabularx}{\textwidth}{c L c c c c L}
+        \toprule
+        \textbf{No.} &
+        \textbf{Kondisi} &
+        \textbf{Suhu} &
+        \textbf{Kelembapan Tanah} &
+        \textbf{Prediksi} &
+        \textbf{LED Aktual} &
+        \textbf{Catatan} \\
+        \midrule
 
         6 &
         Udara dingin + rockwool basah &
