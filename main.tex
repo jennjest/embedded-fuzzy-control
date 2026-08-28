@@ -19,7 +19,7 @@
 \usepackage{hyperref}
 \usepackage{anyfontsize}
 \usepackage{fancyhdr}
-\setlength{\headheight}{21.42186pt}
+\usepackage{eso-pic}
 \usepackage{tocloft}
 \usepackage{indentfirst}
 \usepackage{multirow}
@@ -44,20 +44,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-
-\lhead{\footnotesize \textit{Embedded Fuzzy Logic Control}}
-
-\rhead{%
-    \makebox[1.5cm][r]{%
-        \includegraphics[height=0.6cm]{images/Logo_FILKOM.png}%
-        \hspace{0.03cm}%
-        \includegraphics[height=0.6cm]{images/Logo_Lab_RES.png}%
-    }
-}
-
-\cfoot{\thepage}
-
-\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
 % =========================================================
@@ -115,38 +102,32 @@
 % =========================================================
 \begin{titlepage}
     \thispagestyle{empty}
-    \centering
-
-    \vfill
-
-    {\fontsize{16pt}{18pt}\selectfont
-    \textbf{MODUL PERCOBAAN}\par}
-
-    \vspace{0.5cm}
-
-    {\LARGE
-    \textbf{EMBEDDED FUZZY LOGIC CONTROL}\par}
-
-    \vspace{0.3cm}
-
-    {\large
-    \textbf{Monitoring Kondisi Tanaman Hidroponik Berbasis ESP32}\par}
-
-    \vspace{5cm}
-
+    \newgeometry{margin=0pt}
+    \noindent
     \includegraphics[
-        width=7cm,
-        height=7cm
-    ]{images/Logo_Universitas_Brawijaya.png}
-
-    \vfill
-
-    {\large Laboratorium Robotika dan Embedded System\par}
-    {\large Fakultas Ilmu Komputer\par}
-    {\large Universitas Brawijaya\par}
-    {\large 2026\par}
+        width=\paperwidth,
+        height=\paperheight
+    ]{design/Cover.png}
+    \restoregeometry
 
 \end{titlepage}
+
+\AddToShipoutPictureBG{%
+    \AtPageUpperLeft{%
+        \raisebox{-\height}{%
+            \includegraphics[width=\paperwidth]{design/Header.png}%
+        }%
+    }%
+    \AtPageLowerLeft{%
+        \rlap{\includegraphics[width=\paperwidth]{design/Footer.png}}%
+        \hspace{190.5mm}%
+        \raisebox{9mm}{%
+            \makebox[13.5mm][c]{%
+                \textcolor{white}{\bfseries\thepage}%
+            }%
+        }%
+    }%
+}
 
 % =========================================================
 % DAFTAR ISI
@@ -402,68 +383,227 @@ Pada percobaan ini, LED digunakan sebagai keluaran indikator sistem. LED tidak m
 
 \subsection{Konsep Dasar Fuzzy Logic}
 
-Fuzzy logic adalah metode pengambilan keputusan yang memungkinkan sistem menangani kondisi yang tidak selalu memiliki batas yang pasti. Berbeda dengan sistem yang hanya menggunakan keputusan ``ya'' atau ``tidak'', fuzzy logic dapat mengenali kondisi di antara keduanya berdasarkan tingkat kecocokan suatu nilai. Misalnya, suhu $27^\circ$C tidak harus langsung dianggap hanya sebagai suhu sedang atau panas. Suhu tersebut dapat dikatakan cukup sedang dan sebagian panas karena masih memiliki tingkat kecocokan terhadap kedua kategori tersebut.
+\subsubsection{Pengertian Fuzzy Logic}
 
-Tingkat kecocokan suatu nilai terhadap suatu kategori disebut derajat keanggotaan. Nilainya berada antara 0 sampai 1. Nilai 0 berarti suatu nilai tidak sesuai dengan kategori tersebut, sedangkan nilai 1 berarti nilai tersebut sepenuhnya sesuai. Nilai di antara 0 dan 1 menunjukkan bahwa nilai tersebut hanya sebagian sesuai dengan kategori tersebut.
+Fuzzy logic atau logika fuzzy merupakan metode logika yang digunakan untuk merepresentasikan dan mengolah informasi berdasarkan derajat keanggotaan suatu nilai terhadap suatu himpunan. Derajat keanggotaan tersebut dinyatakan dalam bentuk angka pada rentang 0 sampai 1, dengan nilai 0 menunjukkan bahwa suatu nilai sama sekali tidak termasuk dalam himpunan tertentu, sedangkan nilai 1 menunjukkan bahwa suatu nilai sepenuhnya termasuk dalam himpunan tersebut.
 
-Untuk menentukan derajat keanggotaan, digunakan membership function. Membership function berfungsi untuk menentukan seberapa besar suatu nilai sensor termasuk ke dalam kategori tertentu. Bentuk membership function yang sederhana dapat berupa segitiga atau trapesium. Pada percobaan ini digunakan membership function berbentuk segitiga karena sederhana dan mudah digunakan untuk membagi nilai sensor ke dalam beberapa kategori.
+Berbanding terbalik dengan fuzzy logic, crisp logic atau logika tegas hanya mengenal dua kondisi, yaitu benar atau salah, sehingga suatu nilai hanya dapat masuk ke dalam satu kategori secara mutlak. Fuzzy logic berbeda dengan crisp logic karena memungkinkan suatu nilai memiliki tingkat keanggotaan terhadap lebih dari satu kategori dalam waktu yang bersamaan. Sebagai contoh, suatu nilai suhu dapat dikatakan sebagian termasuk kategori sedang dan sebagian termasuk kategori panas, tergantung pada seberapa dekat nilai tersebut terhadap batas masing-masing kategori.
 
-Untuk fungsi segitiga, derajat keanggotaan dapat dihitung menggunakan persamaan:
+Kemampuan tersebut membuat fuzzy logic sesuai digunakan pada sistem yang kondisi lingkungannya tidak selalu memiliki batas yang tegas, seperti sistem pemantauan tanaman yang dibahas pada modul ini. Untuk menentukan derajat keanggotaan, digunakan \textit{membership function}. \textit{Membership function} berfungsi untuk menentukan seberapa besar suatu nilai sensor termasuk ke dalam kategori tertentu. Bentuk \textit{membership function} yang umum digunakan antara lain berbentuk segitiga (\textit{triangular}) dan trapesium (\textit{trapezoidal}).
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \rule{0pt}{4cm}
+        \rule{0.85\textwidth}{0pt}
+    }
+    \caption{Contoh membership function segitiga}
+    \label{fig:membership-segitiga}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \rule{0pt}{4cm}
+        \rule{0.85\textwidth}{0pt}
+    }
+    \caption{Contoh membership function trapesium}
+    \label{fig:membership-trapesium}
+\end{figure}
+
+Pada percobaan ini digunakan \textit{membership function} berbentuk segitiga. Untuk fungsi segitiga, derajat keanggotaan dapat dihitung menggunakan persamaan berikut.
 
 \[
 \mu(x)=
 \begin{cases}
-0, & x\leq a \\
-\dfrac{x-a}{b-a}, & a < x \leq b \\
-\dfrac{c-x}{c-b}, & b < x < c \\
-0, & x\geq c
+0, & x \leq a \\[6pt]
+\dfrac{x-a}{b-a}, & a < x \leq b \\[8pt]
+\dfrac{c-x}{c-b}, & b < x < c \\[8pt]
+0, & x \geq c
 \end{cases}
 \]
 
-Sebagai contoh, misalkan sensor membaca suhu $27^\circ$C. Berdasarkan membership function, suhu tersebut termasuk dalam kategori sedang dan panas. Untuk kategori sedang dengan parameter $[20,25,30]$, derajat keanggotaannya dihitung sebagai:
+dengan $a$, $b$, dan $c$ merupakan parameter batas yang menentukan bentuk kurva segitiga pada suatu himpunan fuzzy.
+
+\subsubsection{Fuzzy Direct dan Fuzzy PI}
+
+Terdapat dua pendekatan yang umum digunakan dalam penerapan fuzzy logic pada sistem kontrol, yaitu Fuzzy Direct dan Fuzzy PI. Kedua pendekatan tersebut berbeda pada jenis nilai yang digunakan sebagai input fuzzy. Perbedaan tersebut menentukan bagaimana kondisi sistem diproses sebelum menghasilkan keluaran.
+
+Fuzzy Direct merupakan pendekatan yang menggunakan nilai kondisi atau input sistem secara langsung sebagai masukan proses fuzzy, tanpa melalui perhitungan tambahan seperti selisih terhadap suatu nilai acuan. Nilai input yang terbaca oleh sensor langsung diproses melalui tahap fuzzifikasi, penalaran, dan defuzzifikasi untuk menghasilkan output secara langsung. Alur kerja Fuzzy Direct adalah sebagai berikut.
+
+\[
+\text{Nilai Sensor}
+\rightarrow
+\text{Fuzzifikasi}
+\rightarrow
+\text{Penalaran}
+\rightarrow
+\text{Defuzzifikasi}
+\rightarrow
+\text{Keluaran}
+\]
+
+Fuzzy PI merupakan pendekatan yang menggunakan error dan perubahan error ($\Delta$ error) sebagai input fuzzy, bukan nilai kondisi sistem secara langsung. Error dihitung sebagai selisih antara kondisi aktual dengan nilai target (\textit{setpoint}) yang telah ditentukan, sedangkan $\Delta$ error dihitung sebagai selisih antara error saat ini dengan error pada waktu sebelumnya. Pendekatan ini digunakan pada sistem kontrol yang memerlukan penyesuaian keluaran secara bertahap berdasarkan seberapa jauh kondisi aktual menyimpang dari target.
+
+Alur kerja Fuzzy PI adalah sebagai berikut.
+
+\[
+\text{Setpoint + Kondisi Aktual}
+\rightarrow
+\text{Error dan } \Delta\text{ Error}
+\rightarrow
+\text{Fuzzy PI}
+\rightarrow
+\text{Perubahan Output Sistem}
+\]
+
+Pendekatan yang digunakan pada percobaan ini adalah Fuzzy Direct, karena sistem menggunakan kondisi yang terukur secara langsung sebagai input, yaitu kelembapan tanah dan suhu. Sistem tidak memerlukan perhitungan error terhadap nilai target tertentu, sehingga nilai sensor dapat langsung diproses oleh fuzzy logic. Perubahan suhu atau kelembapan tanah akan langsung memengaruhi keluaran karena perubahan tersebut dapat mengubah derajat keanggotaan dan rule yang aktif.
+
+Fuzzy PI hanya diperkenalkan sebagai pendekatan lain dalam bidang fuzzy control dan tidak diterapkan pada sistem yang dipraktikkan. Pendekatan fuzzy logic yang dikombinasikan dengan pengendali lain seperti PI atau PID juga tidak menjadi bagian dari pembahasan modul ini. Dengan demikian, proses pada percobaan difokuskan pada penggunaan nilai sensor secara langsung untuk menentukan indikator kondisi tanaman melalui LED.
+
+\subsubsection{Alur Pengolahan Fuzzy}
+
+Secara umum, proses fuzzy logic pada sistem ini terdiri atas beberapa tahap yang dijalankan secara berurutan, mulai dari pembacaan nilai sensor hingga diperoleh keputusan akhir berupa indikator LED. Tahap tersebut meliputi input, fuzzifikasi, penalaran berdasarkan aturan dasar, defuzzifikasi, hingga output. Setiap tahap memiliki fungsi yang berbeda dalam mengolah data sensor menjadi keputusan sistem.
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \rule{0pt}{5cm}
+        \rule{0.9\textwidth}{0pt}
+    }
+    \caption{Alur pengolahan fuzzy}
+    \label{fig:alur-pengolahan-fuzzy}
+\end{figure}
+
+\textbf{a) Input}
+
+Tahap input merupakan tahap awal dalam proses pengolahan fuzzy. Pada tahap ini, sistem membaca kondisi lingkungan menggunakan sensor DHT22 untuk mengukur suhu dan \textit{Capacitive Soil Moisture Sensor} untuk mengukur kelembapan tanah. Hasil pembacaan sensor berupa nilai \textit{crisp}, yaitu nilai dalam bentuk angka yang dapat diukur secara langsung, misalnya suhu sebesar $28^\circ$C dan kelembapan tanah sebesar $32\%$.
+
+Nilai tersebut kemudian digunakan sebagai masukan untuk proses fuzzy pada tahap berikutnya. Pada tahap input, sistem hanya bertugas membaca dan mengambil data dari sensor. Sistem belum menentukan apakah kondisi tanah termasuk kering, lembap, atau basah, maupun apakah suhu termasuk rendah, sedang, atau tinggi.
+
+Hasil pembacaan pada tahap ini menjadi dasar untuk menentukan kondisi tanaman melalui proses fuzzy selanjutnya. Oleh karena itu, semakin baik dan akurat data yang diperoleh sensor, semakin baik pula hasil pengolahan fuzzy yang dihasilkan oleh sistem. Data sensor yang telah terbaca kemudian diteruskan ke tahap fuzzifikasi.
+
+\textbf{b) Fuzzifikasi}
+
+Fuzzifikasi merupakan tahap mengubah nilai input \textit{crisp} menjadi derajat keanggotaan fuzzy pada masing-masing himpunan yang telah ditentukan. Pada tahap ini, nilai suhu dan kelembapan tanah yang diperoleh dari sensor dimasukkan ke dalam \textit{membership function} masing-masing variabel untuk mengetahui seberapa besar nilai tersebut termasuk ke dalam kategori tertentu. Bentuk \textit{membership function} untuk masing-masing variabel input ditampilkan pada gambar berikut.
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \rule{0pt}{4cm}
+        \rule{0.85\textwidth}{0pt}
+    }
+    \caption{Membership function suhu}
+    \label{fig:membership-suhu}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \rule{0pt}{4cm}
+        \rule{0.85\textwidth}{0pt}
+    }
+    \caption{Membership function kelembapan tanah}
+    \label{fig:membership-kelembapan}
+\end{figure}
+
+Sebagai contoh, berdasarkan pengujian pada sistem, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan \textit{membership function}, suhu tersebut termasuk dalam kategori sedang dan panas. Perhitungan derajat keanggotaannya adalah sebagai berikut.
+
+Untuk kategori sedang dengan parameter $[20,25,30]$:
 
 \[
 \mu_{\text{sedang}}(27)
 =
 \frac{30-27}{30-25}
 =
-0,6
+\frac{3}{5}
+=
+0{,}6
 \]
 
-Sementara itu, untuk kategori panas dengan parameter $[25,30,35]$:
+Untuk kategori panas dengan parameter $[25,30,35]$:
 
 \[
 \mu_{\text{panas}}(27)
 =
 \frac{27-25}{30-25}
 =
-0,4
+\frac{2}{5}
+=
+0{,}4
 \]
 
-Dengan demikian, suhu $27^\circ$C memiliki derajat keanggotaan sebesar $0,6$ pada kategori sedang dan $0,4$ pada kategori panas. Pada saat yang sama, misalkan hasil pembacaan sensor menunjukkan bahwa kelembapan tanah berada sepenuhnya pada kategori lembap. Oleh karena itu, derajat keanggotaannya pada kategori tersebut adalah $1,0$. Nilai $1,0$ menunjukkan tingkat keanggotaan penuh, bukan nilai kelembapan tanah yang sebenarnya. Dengan kondisi tersebut, dua rule dapat aktif.
+Dengan demikian, hasil fuzzifikasi menunjukkan bahwa suhu $27^\circ$C memiliki derajat keanggotaan $0{,}6$ pada kategori sedang dan $0{,}4$ pada kategori panas. Pada saat yang sama, misalkan hasil pembacaan sensor menunjukkan bahwa kelembapan tanah berada sepenuhnya pada kategori lembap, sehingga derajat keanggotaannya pada kategori tersebut adalah $1{,}0$. Nilai $1{,}0$ tersebut menunjukkan tingkat keanggotaan penuh, bukan nilai kelembapan tanah yang sebenarnya.
 
-Setelah nilai sensor diubah menjadi derajat keanggotaan melalui proses fuzzifikasi, sistem masuk ke tahap inferensi. Pada tahap ini, sistem menggunakan aturan atau rule berbentuk IF--THEN untuk menentukan keputusan. Misalnya, terdapat aturan ``IF suhu sedang AND kelembapan tanah sedang THEN kondisi hijau''. Untuk aturan yang menggunakan AND, derajat keanggotaan yang digunakan adalah nilai terkecil atau minimum. Sebaliknya, pada aturan yang menggunakan OR, nilai yang digunakan adalah nilai terbesar atau maksimum.
+Hal ini menunjukkan bahwa satu nilai input dapat memiliki derajat keanggotaan pada lebih dari satu kategori secara bersamaan. Dengan kondisi tersebut, terdapat lebih dari satu rule yang dapat aktif pada waktu yang sama. Hasil fuzzifikasi selanjutnya digunakan sebagai input pada tahap penalaran berdasarkan aturan dasar.
 
-Rule pertama adalah ``IF suhu sedang AND kelembapan tanah sedang THEN hijau''. Karena menggunakan AND, kekuatan rule diambil dari nilai minimum, yaitu:
+\textbf{c) Penalaran Berdasarkan Aturan Dasar}
+
+Penalaran merupakan tahap menentukan hasil berdasarkan hubungan antara input yang telah difuzzifikasi dengan aturan dasar (\textit{rule}) yang telah disusun sebelumnya. Sistem ini menggunakan rule yang menggabungkan kategori suhu dengan kategori kelembapan tanah menggunakan operator AND. Dalam fuzzy logic, operator AND diselesaikan dengan mengambil nilai minimum dari kedua derajat keanggotaan yang digabungkan.
+
+Setiap rule menghasilkan salah satu kategori keluaran linguistik berupa warna indikator, yaitu hijau atau kuning. Hubungan antara kondisi input dan keluaran tersebut ditentukan melalui rule base sistem fuzzy. Rule base digunakan sebagai dasar untuk menentukan kategori output berdasarkan kombinasi kondisi suhu dan kelembapan tanah.
+
+\begin{figure}[H]
+    \centering
+    \fbox{
+        \rule{0pt}{5cm}
+        \rule{0.9\textwidth}{0pt}
+    }
+    \caption{Rule base sistem fuzzy}
+    \label{fig:rule-base-fuzzy}
+\end{figure}
+
+Berdasarkan derajat keanggotaan yang telah diperoleh, yaitu suhu sedang sebesar $0{,}6$, suhu panas sebesar $0{,}4$, dan kelembapan tanah lembap sebesar $1{,}0$, maka nilai $\alpha$ untuk setiap rule dihitung sebagai berikut.
+
+Rule 5:
 
 \[
-\alpha_1=\min(0{,}6;1{,}0)=0{,}6
+\alpha_5
+=
+\min(0{,}6;1{,}0)
+=
+0{,}6
 \]
 
-Rule kedua adalah ``IF suhu panas AND kelembapan tanah sedang THEN kuning''. Kekuatan rule tersebut adalah:
+Rule 6:
 
 \[
-\alpha_2=\min(0{,}4;1{,}0)=0{,}4
+\alpha_6
+=
+\min(0{,}4;1{,}0)
+=
+0{,}4
 \]
 
-Dengan demikian, kedua rule tetap ikut memengaruhi keputusan. Rule pertama memiliki kekuatan 0,6, sedangkan rule kedua memiliki kekuatan 0,4. Hal ini menunjukkan bahwa fuzzy logic tidak hanya memilih kategori dengan nilai keanggotaan terbesar, tetapi tetap mempertimbangkan kategori lain yang memiliki derajat keanggotaan.
+Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Rule 6 menggunakan kondisi suhu panas dan kelembapan lembap sehingga menghasilkan kategori kuning. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
 
-Setelah proses inferensi selesai, sistem masuk ke tahap defuzzifikasi, yaitu proses mengubah hasil dari rule yang aktif menjadi satu nilai keluaran akhir. Pada percobaan ini digunakan nilai keluaran representatif berupa 0 untuk merah, 50 untuk kuning, dan 100 untuk hijau. Nilai tersebut kemudian digabungkan berdasarkan kekuatan masing-masing rule menggunakan metode rata-rata berbobot.
-
-Berdasarkan contoh sebelumnya, rule pertama menghasilkan keluaran hijau dengan kekuatan 0,6, sedangkan rule kedua menghasilkan keluaran kuning dengan kekuatan 0,4. Maka, nilai keluaran akhir pada tahap defuzzifikasi dihitung sebagai berikut:
+Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 5 dan Rule 6. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 5 menghasilkan kategori hijau dan Rule 6 menghasilkan kategori kuning, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
 
 \[
-z=\frac{\sum_{i=1}^{n}\alpha_i z_i}
+\alpha_{\text{hijau}} = \alpha_5 = 0{,}6
+\]
+
+\[
+\alpha_{\text{kuning}} = \alpha_6 = 0{,}4
+\]
+
+Nilai-nilai tersebut menunjukkan kekuatan akhir masing-masing kategori keluaran warna indikator setelah mempertimbangkan seluruh rule yang aktif. Hasil penalaran kemudian diteruskan ke tahap defuzzifikasi untuk menghasilkan satu nilai keluaran.
+
+\textbf{d) Defuzzifikasi}
+
+Defuzzifikasi merupakan tahap mengubah hasil penalaran yang masih berbentuk representasi fuzzy menjadi satu nilai \textit{crisp} atau nilai tunggal yang dapat digunakan oleh sistem. Pada tahap ini, kekuatan masing-masing rule digunakan untuk memperoleh satu nilai keluaran akhir. Proses tersebut dapat digambarkan sebagai berikut.
+
+\[
+\text{Hasil Penalaran}
+\rightarrow
+\text{Nilai Output Crisp}
+\]
+
+Metode yang digunakan adalah rata-rata berbobot (\textit{weighted average}), yang menghitung nilai rata-rata dari seluruh rule yang aktif dengan bobot berupa kekuatan masing-masing rule ($\alpha$). Nilai yang dibobotkan berupa nilai representatif dari kategori keluaran rule tersebut, yaitu 0 untuk merah, 50 untuk kuning, dan 100 untuk hijau. Persamaan yang digunakan adalah sebagai berikut.
+
+\[
+z=
+\frac{\sum_{i=1}^{n}\alpha_i z_i}
 {\sum_{i=1}^{n}\alpha_i}
 \]
 
@@ -474,45 +614,44 @@ dengan:
     \item $z_i$ = nilai keluaran dari \textit{rule} ke-$i$.
 \end{itemize}
 
-Maka:
+Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}6$, sedangkan Rule 6 menghasilkan keluaran kuning dengan kekuatan $0{,}4$. Maka nilai keluaran akhir dihitung sebagai berikut.
 
 \begin{align}
 z &=
-\frac{(0,6\times100)+(0,4\times50)}
-{0,6+0,4} \\
+\frac{(0{,}6 \times 100)+(0{,}4 \times 50)}
+{0{,}6+0{,}4}
+\\[4pt]
 &=
-\frac{60+20}{1} \\
+\frac{60+20}{1}
+\\[4pt]
 &= 80
 \end{align}
 
-Nilai 80 merupakan hasil defuzzifikasi atau nilai keluaran akhir sistem. Nilai tersebut kemudian dipetakan ke kategori LED berdasarkan rentang yang telah ditentukan, misalnya 0--24 untuk merah, 25--74 untuk kuning, dan 75--100 untuk hijau. Dengan demikian, nilai 80 menghasilkan LED hijau.
+Nilai $80$ merupakan hasil defuzzifikasi atau nilai keluaran akhir sistem. Nilai tersebut kemudian digunakan pada tahap output untuk menentukan warna LED yang akan menyala. Dengan demikian, hasil dari beberapa rule aktif dapat digabungkan menjadi satu nilai keluaran yang dapat digunakan oleh sistem.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[
-        width=\textwidth
-    ]{images/alur-contoh.png}
-    \caption{Alur sederhana proses fuzzy logic}
-    \label{fig:alur-fuzzy}
-\end{figure}
+\textbf{e) Output}
 
-\subsection{Direct Fuzzy Logic Control}
-
-Direct Fuzzy Logic Control adalah metode pengambilan keputusan yang langsung menggunakan hasil pengolahan fuzzy untuk menentukan keluaran sistem. Dalam penerapannya, nilai dari sensor suhu dan kelembapan tanah diproses menggunakan fuzzy logic untuk menentukan kondisi sistem yang kemudian ditampilkan melalui LED. Pendekatan yang digunakan adalah Direct Fuzzy Logic Control, sehingga fuzzy logic berperan secara langsung dalam menentukan keluaran berdasarkan kondisi sensor. Sementara itu, pendekatan fuzzy logic yang dikombinasikan dengan pengendali lain, seperti PI atau PID, tidak menjadi bagian dari pembahasan.
-
-Secara sederhana, prosesnya dimulai dari pembacaan nilai sensor. Nilai tersebut kemudian diubah menjadi derajat keanggotaan melalui proses fuzzifikasi. Setelah itu, sistem menjalankan rule yang telah dibuat pada tahap inferensi. Hasil dari rule kemudian diolah melalui defuzzifikasi untuk mendapatkan satu nilai keluaran akhir.
+Nilai \textit{crisp} ($z$) yang diperoleh dari tahap defuzzifikasi selanjutnya dipetakan ke dalam kategori LED berdasarkan rentang nilai yang telah ditentukan. Pemetaan tersebut digunakan untuk mengubah nilai keluaran menjadi indikator kondisi yang dapat diamati secara langsung oleh pengguna. Rentang kategori LED yang digunakan pada sistem adalah sebagai berikut.
 
 \[
-\text{Nilai Sensor}
-\rightarrow
-\text{Fuzzy Logic}
-\rightarrow
-\text{Keluaran}
-\rightarrow
-\text{LED}
+0 \leq z < 25
+\quad\rightarrow\quad
+\text{LED Merah}
 \]
 
-Perubahan suhu atau kelembapan tanah dapat memengaruhi keluaran karena perubahan tersebut dapat mengubah derajat keanggotaan dan rule yang aktif. Hasil akhirnya ditampilkan melalui LED sehingga hubungan antara perubahan kondisi sensor dan keputusan sistem dapat diamati secara langsung.
+\[
+25 \leq z < 75
+\quad\rightarrow\quad
+\text{LED Kuning}
+\]
+
+\[
+75 \leq z \leq 100
+\quad\rightarrow\quad
+\text{LED Hijau}
+\]
+
+Melanjutkan contoh sebelumnya, nilai $z=80$ berada pada rentang $75 \leq z \leq 100$, sehingga sistem menghasilkan LED hijau. Dengan demikian, output yang diterima oleh pengguna sistem bukan berupa angka mentah, melainkan indikasi kondisi tanaman secara langsung melalui LED. Hal tersebut memungkinkan perubahan kondisi suhu dan kelembapan tanah diamati melalui perubahan indikator warna yang dihasilkan sistem.
 
 % =========================================================
 % 4. PERSIAPAN PERCOBAAN
