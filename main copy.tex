@@ -515,24 +515,24 @@ Fuzzifikasi merupakan tahap mengubah nilai input \textit{crisp} menjadi derajat 
     \label{fig:membership-kelembapan}
 \end{figure}
 
-Sebagai contoh, berdasarkan pengujian pada sistem, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan \textit{membership function}, suhu tersebut termasuk dalam kategori sedang dan panas. Perhitungan derajat keanggotaannya adalah sebagai berikut.
+Sebagai contoh, berdasarkan pengujian pada sistem, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan \textit{membership function}, suhu tersebut termasuk dalam kategori dingin dan sedang. Perhitungan derajat keanggotaannya adalah sebagai berikut.
 
-Untuk kategori sedang dengan parameter $[20,25,30]$:
+Untuk kategori dingin dengan parameter $[0,24,28]$:
+
+\[
+\mu_{\text{dingin}}(27)
+=
+\frac{28-27}{28-24}
+=
+\frac{1}{4}
+=
+0{,}25
+\]
+
+Untuk kategori sedang dengan parameter $[25,30,45]$:
 
 \[
 \mu_{\text{sedang}}(27)
-=
-\frac{30-27}{30-25}
-=
-\frac{3}{5}
-=
-0{,}6
-\]
-
-Untuk kategori panas dengan parameter $[25,30,35]$:
-
-\[
-\mu_{\text{panas}}(27)
 =
 \frac{27-25}{30-25}
 =
@@ -541,7 +541,7 @@ Untuk kategori panas dengan parameter $[25,30,35]$:
 0{,}4
 \]
 
-Dengan demikian, hasil fuzzifikasi menunjukkan bahwa suhu $27^\circ$C memiliki derajat keanggotaan $0{,}6$ pada kategori sedang dan $0{,}4$ pada kategori panas. Pada saat yang sama, misalkan hasil pembacaan sensor menunjukkan bahwa kelembapan tanah berada sepenuhnya pada kategori lembap, sehingga derajat keanggotaannya pada kategori tersebut adalah $1{,}0$. Nilai $1{,}0$ tersebut menunjukkan tingkat keanggotaan penuh, bukan nilai kelembapan tanah yang sebenarnya.
+Dengan demikian, hasil fuzzifikasi menunjukkan bahwa suhu $27^\circ$C memiliki derajat keanggotaan $0{,}25$ pada kategori dingin dan $0{,}4$ pada kategori sedang. Pada saat yang sama, misalkan hasil pembacaan sensor menunjukkan bahwa kelembapan tanah berada sepenuhnya pada kategori lembap, sehingga derajat keanggotaannya pada kategori tersebut adalah $1{,}0$. Nilai $1{,}0$ tersebut menunjukkan tingkat keanggotaan penuh, bukan nilai kelembapan tanah yang sebenarnya.
 
 Hal ini menunjukkan bahwa satu nilai input dapat memiliki derajat keanggotaan pada lebih dari satu kategori secara bersamaan. Dengan kondisi tersebut, terdapat lebih dari satu rule yang dapat aktif pada waktu yang sama. Hasil fuzzifikasi selanjutnya digunakan sebagai input pada tahap penalaran berdasarkan aturan dasar.
 
@@ -561,38 +561,38 @@ Setiap rule menghasilkan salah satu kategori keluaran linguistik berupa warna in
     \label{fig:rule-base-fuzzy}
 \end{figure}
 
-Berdasarkan derajat keanggotaan yang telah diperoleh, yaitu suhu sedang sebesar $0{,}6$, suhu panas sebesar $0{,}4$, dan kelembapan tanah lembap sebesar $1{,}0$, maka nilai $\alpha$ untuk setiap rule dihitung sebagai berikut.
+Berdasarkan derajat keanggotaan yang telah diperoleh, yaitu suhu dingin sebesar $0{,}25$, suhu sedang sebesar $0{,}4$, dan kelembapan tanah lembap sebesar $1{,}0$, maka nilai $\alpha$ untuk setiap rule dihitung sebagai berikut.
+
+Rule 2:
+
+\[
+\alpha_2
+=
+\min(0{,}25;1{,}0)
+=
+0{,}25
+\]
 
 Rule 5:
 
 \[
 \alpha_5
 =
-\min(0{,}6;1{,}0)
-=
-0{,}6
-\]
-
-Rule 6:
-
-\[
-\alpha_6
-=
 \min(0{,}4;1{,}0)
 =
 0{,}4
 \]
 
-Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Rule 6 menggunakan kondisi suhu panas dan kelembapan lembap sehingga menghasilkan kategori kuning. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
+Rule 2 menggunakan kondisi suhu dingin dan kelembapan lembap sehingga menghasilkan kategori kuning. Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
 
-Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 5 dan Rule 6. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 5 menghasilkan kategori hijau dan Rule 6 menghasilkan kategori kuning, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
+Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 2 dan Rule 5. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 2 menghasilkan kategori kuning dan Rule 5 menghasilkan kategori hijau, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
 
 \[
-\alpha_{\text{hijau}} = \alpha_5 = 0{,}6
+\alpha_{\text{kuning}} = \alpha_2 = 0{,}25
 \]
 
 \[
-\alpha_{\text{kuning}} = \alpha_6 = 0{,}4
+\alpha_{\text{hijau}} = \alpha_5 = 0{,}4
 \]
 
 Nilai-nilai tersebut menunjukkan kekuatan akhir masing-masing kategori keluaran warna indikator setelah mempertimbangkan seluruh rule yang aktif. Hasil penalaran kemudian diteruskan ke tahap defuzzifikasi untuk menghasilkan satu nilai keluaran.
@@ -622,20 +622,20 @@ dengan:
     \item $z_i$ = nilai keluaran dari \textit{rule} ke-$i$.
 \end{itemize}
 
-Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}6$, sedangkan Rule 6 menghasilkan keluaran kuning dengan kekuatan $0{,}4$. Maka nilai keluaran akhir dihitung sebagai berikut.
+Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}4$, sedangkan Rule 2 menghasilkan keluaran kuning dengan kekuatan $0{,}25$. Maka nilai keluaran akhir dihitung sebagai berikut.
 
 \begin{align}
 z &=
-\frac{(0{,}6 \times 100)+(0{,}4 \times 50)}
-{0{,}6+0{,}4}
+\frac{(0{,}4 \times 100)+(0{,}25 \times 50)}
+{0{,}4+0{,}25}
 \\[4pt]
 &=
-\frac{60+20}{1}
+\frac{40+12{,}5}{0{,}65}
 \\[4pt]
-&= 80
+&\approx 80{,}77
 \end{align}
 
-Nilai $80$ merupakan hasil defuzzifikasi atau nilai keluaran akhir sistem. Nilai tersebut kemudian digunakan pada tahap output untuk menentukan warna LED yang akan menyala. Dengan demikian, hasil dari beberapa rule aktif dapat digabungkan menjadi satu nilai keluaran yang dapat digunakan oleh sistem.
+Nilai $\approx 80{,}77$ merupakan hasil defuzzifikasi atau nilai keluaran akhir sistem. Nilai tersebut kemudian digunakan pada tahap output untuk menentukan warna LED yang akan menyala. Dengan demikian, hasil dari beberapa rule aktif dapat digabungkan menjadi satu nilai keluaran yang dapat digunakan oleh sistem.
 
 \textbf{e) Output}
 
@@ -659,8 +659,7 @@ Nilai \textit{crisp} ($z$) yang diperoleh dari tahap defuzzifikasi selanjutnya d
 \text{LED Hijau}
 \]
 
-Melanjutkan contoh sebelumnya, nilai $z=80$ berada pada rentang $75 \leq z \leq 100$, sehingga sistem menghasilkan LED hijau. Dengan demikian, output yang diterima oleh pengguna sistem bukan berupa angka mentah, melainkan indikasi kondisi tanaman secara langsung melalui LED. Hal tersebut memungkinkan perubahan kondisi suhu dan kelembapan tanah diamati melalui perubahan indikator warna yang dihasilkan sistem.
-
+Melanjutkan contoh sebelumnya, nilai $z\approx80{,}77$ berada pada rentang $75 \leq z \leq 100$, sehingga sistem menghasilkan LED hijau. Dengan demikian, output yang diterima oleh pengguna sistem bukan berupa angka mentah, melainkan indikasi kondisi tanaman secara langsung melalui LED. Hal tersebut memungkinkan perubahan kondisi suhu dan kelembapan tanah diamati melalui perubahan indikator warna yang dihasilkan sistem.
 % =========================================================
 % 4. PERSIAPAN PERCOBAAN
 % =========================================================
