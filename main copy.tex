@@ -563,10 +563,10 @@ Setiap rule menghasilkan salah satu kategori keluaran linguistik berupa warna in
 
 Berdasarkan derajat keanggotaan yang telah diperoleh, yaitu suhu dingin sebesar $0{,}25$, suhu sedang sebesar $0{,}4$, dan kelembapan tanah lembap sebesar $1{,}0$, maka nilai $\alpha$ untuk setiap rule dihitung sebagai berikut.
 
-Rule 2:
+Rule 4:
 
 \[
-\alpha_2
+\alpha_4
 =
 \min(0{,}25;1{,}0)
 =
@@ -583,12 +583,12 @@ Rule 5:
 0{,}4
 \]
 
-Rule 2 menggunakan kondisi suhu dingin dan kelembapan lembap sehingga menghasilkan kategori kuning. Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
+Rule 4 menggunakan kondisi suhu dingin dan kelembapan lembap sehingga menghasilkan kategori kuning. Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
 
-Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 2 dan Rule 5. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 2 menghasilkan kategori kuning dan Rule 5 menghasilkan kategori hijau, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
+Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 4 dan Rule 5. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 4 menghasilkan kategori kuning dan Rule 5 menghasilkan kategori hijau, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
 
 \[
-\alpha_{\text{kuning}} = \alpha_2 = 0{,}25
+\alpha_{\text{kuning}} = \alpha_4 = 0{,}25
 \]
 
 \[
@@ -622,7 +622,7 @@ dengan:
     \item $z_i$ = nilai keluaran dari \textit{rule} ke-$i$.
 \end{itemize}
 
-Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}4$, sedangkan Rule 2 menghasilkan keluaran kuning dengan kekuatan $0{,}25$. Maka nilai keluaran akhir dihitung sebagai berikut.
+Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}4$, sedangkan Rule 4 menghasilkan keluaran kuning dengan kekuatan $0{,}25$. Maka nilai keluaran akhir dihitung sebagai berikut.
 
 \begin{align}
 z &=
@@ -995,7 +995,6 @@ Nilai akhir kemudian dipetakan ke indikator LED berdasarkan rentang berikut:
 
 Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebagai sumber data sistem. Penguji mengamati nilai suhu dan kelembapan tanah sebelum proses pengambilan keputusan diaktifkan. Pada percobaan ini, perubahan kelembapan media dibuat menggunakan beberapa kondisi rockwool, sedangkan perubahan suhu diamati pada kondisi suhu ruangan, saat sensor terkena aliran udara dingin, dan saat sensor terkena aliran udara panas.
 
-\subsection{Prosedur Percobaan}
 
 \subsection{Prosedur Percobaan}
 
