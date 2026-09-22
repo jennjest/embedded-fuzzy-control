@@ -20,11 +20,11 @@
 \contentsline {subsection}{\numberline {5.3}Fuzzy Rule}{14}{subsection.5.3}%
 \contentsline {section}{\numberline {6}Percobaan 1: Pembacaan Kondisi Lingkungan}{15}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Prosedur Percobaan}{15}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Analisis Percobaan}{17}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.2}Prosedur Percobaan}{15}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Analisis Percobaan}{17}{subsection.6.3}%
 \contentsline {section}{\numberline {7}Percobaan 2: Implementasi Metode Pengambilan Keputusan}{18}{section.7}%
 \contentsline {subsection}{\numberline {7.1}Prosedur Percobaan}{18}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Prosedur Percobaan}{18}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Tabel Pengamatan}{23}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Analisis Percobaan}{24}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.2}Tabel Pengamatan}{23}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Analisis Percobaan}{24}{subsection.7.3}%
 \contentsline {section}{\numberline {8}Evaluasi Percobaan}{25}{section.8}%
 \contentsline {section}{\numberline {9}Penutup}{25}{section.9}%

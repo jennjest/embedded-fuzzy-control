@@ -9,6 +9,7 @@
 \usepackage{textcomp}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\graphicspath{{Embedded_Fuzzy_Control/}}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
@@ -96,6 +97,7 @@
 % DOKUMEN
 % =========================================================
 \begin{document}
+\hypersetup{pageanchor=false}
 
 % =========================================================
 % COVER
@@ -137,11 +139,13 @@
 
 \clearpage
 \pagenumbering{roman}
+\hypersetup{pageanchor=false}
 
 \tableofcontents
 
 \clearpage
 \pagenumbering{arabic}
+\hypersetup{pageanchor=true}
 
 % =========================================================
 % 1. TUJUAN PERCOBAAN
@@ -515,7 +519,7 @@ Fuzzifikasi merupakan tahap mengubah nilai input \textit{crisp} menjadi derajat 
     \label{fig:membership-kelembapan}
 \end{figure}
 
-Sebagai contoh, berdasarkan pengujian pada sistem, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan \textit{membership function}, suhu tersebut termasuk dalam kategori dingin dan sedang. Perhitungan derajat keanggotaannya adalah sebagai berikut.
+Sebagai contoh, berdasarkan pengujian pada sistem, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan \textit{membership function}, suhu tersebut termasuk dalam kategori sedang dan panas. Perhitungan derajat keanggotaannya adalah sebagai berikut.
 
 Untuk kategori dingin dengan parameter $[0,24,28]$:
 
@@ -762,8 +766,8 @@ Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan media. 
         Suhu relatif rendah untuk kondisi pengamatan \\
 
         Suhu &
-        Normal &
-        Suhu berada pada rentang kondisi normal untuk pengamatan \\
+        Sedang &
+        Suhu berada pada rentang kondisi sedang untuk pengamatan \\
 
         Suhu &
         Panas &
@@ -843,11 +847,11 @@ Membership function digunakan untuk mengubah nilai sensor menjadi derajat keangg
         28 &
         Fungsi keanggotaan suhu dingin \\
 
-        Suhu & Normal &
+        Suhu & Sedang &
         25 &
         30 &
         45 &
-        Fungsi keanggotaan suhu normal \\
+        Fungsi keanggotaan suhu sedang \\
 
         Suhu & Panas &
         40 &
@@ -923,21 +927,21 @@ Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelem
         Hijau \\
 
         R4 &
-        Normal &
+        Sedang &
         Kering &
         Buruk &
         0 &
         Merah \\
 
         R5 &
-        Normal &
+        Sedang &
         Lembap &
         Baik &
         100 &
         Hijau \\
 
         R6 &
-        Normal &
+        Sedang &
         Basah &
         Baik &
         100 &
@@ -968,24 +972,22 @@ Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelem
     \end{tabularx}
 \end{table}
 
-Setiap rule menggunakan operator AND untuk menggabungkan kondisi suhu dan kelembapan media. Kekuatan setiap rule ditentukan menggunakan nilai minimum dari derajat keanggotaan kedua input. Misalnya, jika derajat keanggotaan suhu normal adalah 0,6 dan derajat keanggotaan kelembapan lembap adalah 0,8, maka kekuatan rule yang menggabungkan kedua kondisi tersebut adalah 0,6.
+Setiap rule menggunakan operator AND untuk menggabungkan kondisi suhu dan kelembapan media. Kekuatan setiap rule ditentukan menggunakan nilai minimum dari derajat keanggotaan kedua input. Misalnya, jika derajat keanggotaan suhu sedang adalah 0,6 dan derajat keanggotaan kelembapan lembap adalah 0,8, maka kekuatan rule yang menggabungkan kedua kondisi tersebut adalah 0,6.
 
 Rule R1, R4, dan R7 menghasilkan output buruk dengan nilai representatif 0 sehingga diarahkan ke LED merah. Rule R2 dan R8 menghasilkan output sedang dengan nilai representatif 50 sehingga diarahkan ke LED kuning. Sementara itu, rule R3, R5, dan R6 menghasilkan output baik dengan nilai representatif 100 sehingga diarahkan ke LED hijau. Rule R9 menghasilkan output sedang dengan nilai representatif 50 karena kondisi suhu panas tetap perlu diperhatikan meskipun kelembapan media berada pada kategori basah.
 
 Nilai output pada tabel merupakan nilai representatif (\textit{singleton}) yang digunakan dalam proses defuzzifikasi. Nilai tersebut belum menjadi hasil akhir sistem karena beberapa rule dapat aktif secara bersamaan. Hasil akhir diperoleh dengan menggabungkan kekuatan rule yang aktif menggunakan metode rata-rata berbobot (Sugeno).
 
+\clearpage
+
 Nilai akhir kemudian dipetakan ke indikator LED berdasarkan rentang berikut:
 
 \[
-0 \leq z < 25 \rightarrow \text{LED Merah}
-\]
-
-\[
-25 \leq z < 75 \rightarrow \text{LED Kuning}
-\]
-
-\[
-75 \leq z \leq 100 \rightarrow \text{LED Hijau}
+\begin{aligned}
+0 &\leq z < 25 &&\rightarrow \text{LED Merah} \\
+25 &\leq z < 75 &&\rightarrow \text{LED Kuning} \\
+75 &\leq z \leq 100 &&\rightarrow \text{LED Hijau}
+\end{aligned}
 \]
 
 % =========================================================
@@ -995,6 +997,7 @@ Nilai akhir kemudian dipetakan ke indikator LED berdasarkan rentang berikut:
 
 Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebagai sumber data sistem. Penguji mengamati nilai suhu dan kelembapan tanah sebelum proses pengambilan keputusan diaktifkan. Pada percobaan ini, perubahan kelembapan media dibuat menggunakan beberapa kondisi rockwool, sedangkan perubahan suhu diamati pada kondisi suhu ruangan, saat sensor terkena aliran udara dingin, dan saat sensor terkena aliran udara panas.
 
+\subsection{Prosedur Percobaan}
 
 \subsection{Prosedur Percobaan}
 
@@ -1108,8 +1111,6 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
 
 \subsection{Prosedur Percobaan}
 
-\subsection{Prosedur Percobaan}
-
 \begin{enumerate}
     \item Lanjutkan dari rangkaian Percobaan 1.
     \item Pastikan seluruh koneksi sensor masih terpasang dengan benar.
@@ -1153,7 +1154,7 @@ float suhuDingin(float x)
   return (28.0 - x) / (28.0 - 24.0);
 }
 
-float suhuNormal(float x)
+float suhuSedang(float x)
 {
   if (x <= 25 || x >= 45) return 0.0;
   if (x == 30) return 1.0;
@@ -1167,9 +1168,11 @@ float suhuNormal(float x)
 float suhuPanas(float x)
 {
   if (x <= 40) return 0.0;
-  if (x >= 60) return 1.0;
+    if (x >= 60) return 0.0;
+    if (x <= 50)
+        return (x - 40.0) / (50.0 - 40.0);
 
-  return (x - 40.0) / (60.0 - 40.0);
+    return (60.0 - x) / (60.0 - 50.0);
 }
 
 
@@ -1247,7 +1250,7 @@ void loop()
 
 
   float dingin = suhuDingin(temperature);
-  float normal = suhuNormal(temperature);
+    float sedang = suhuSedang(temperature);
   float panas  = suhuPanas(temperature);
 
   float kering = tanahKering(soilPercent);
@@ -1259,9 +1262,9 @@ void loop()
   float r2 = min(dingin, lembap);
   float r3 = min(dingin, basah);
 
-  float r4 = min(normal, kering);
-  float r5 = min(normal, lembap);
-  float r6 = min(normal, basah);
+    float r4 = min(sedang, kering);
+    float r5 = min(sedang, lembap);
+    float r6 = min(sedang, basah);
 
   float r7 = min(panas, kering);
   float r8 = min(panas, lembap);

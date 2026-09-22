@@ -23,7 +23,7 @@ float suhuDingin(float x)
   return (28.0 - x) / (28.0 - 24.0);
 }
 
-float suhuNormal(float x)
+float suhuSedang(float x)
 {
   if (x <= 25 || x >= 45) return 0.0;
   if (x == 30) return 1.0;
@@ -37,9 +37,11 @@ float suhuNormal(float x)
 float suhuPanas(float x)
 {
   if (x <= 40) return 0.0;
-  if (x >= 60) return 1.0;
+  if (x >= 60) return 0.0;
+  if (x <= 50)
+    return (x - 40.0) / (50.0 - 40.0);
 
-  return (x - 40.0) / (60.0 - 40.0);
+  return (60.0 - x) / (60.0 - 50.0);
 }
 
 
@@ -117,7 +119,7 @@ void loop()
 
 
   float dingin = suhuDingin(temperature);
-  float normal = suhuNormal(temperature);
+  float sedang = suhuSedang(temperature);
   float panas  = suhuPanas(temperature);
 
   float kering = tanahKering(soilPercent);
@@ -129,9 +131,9 @@ void loop()
   float r2 = min(dingin, lembap);
   float r3 = min(dingin, basah);
 
-  float r4 = min(normal, kering);
-  float r5 = min(normal, lembap);
-  float r6 = min(normal, basah);
+  float r4 = min(sedang, kering);
+  float r5 = min(sedang, lembap);
+  float r6 = min(sedang, basah);
 
   float r7 = min(panas, kering);
   float r8 = min(panas, lembap);
