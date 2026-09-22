@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.16)  22 SEP 2026 16:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.8.16)  22 SEP 2026 17:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -890,62 +890,62 @@ Package pdftex.def Info: design/Footer.png  used on input line 609.
  [9 <./images/fuzzy-6.png>]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 655.
+Package pdftex.def Info: design/Header.png  used on input line 657.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 655.
+Package pdftex.def Info: design/Footer.png  used on input line 657.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [10]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 699.
+Package pdftex.def Info: design/Header.png  used on input line 701.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 699.
+Package pdftex.def Info: design/Footer.png  used on input line 701.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [11]
 <images/diagram-blok-sistem.png, id=270, 1678.27pt x 944.52875pt>
 File: images/diagram-blok-sistem.png Graphic file (type png)
 <use images/diagram-blok-sistem.png>
-Package pdftex.def Info: images/diagram-blok-sistem.png  used on input line 746
+Package pdftex.def Info: images/diagram-blok-sistem.png  used on input line 748
 .
 (pdftex.def)             Requested size: 273.14923pt x 153.72191pt.
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 752.
+Package pdftex.def Info: design/Header.png  used on input line 754.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 752.
+Package pdftex.def Info: design/Footer.png  used on input line 754.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [12 <./images/diagram-blok-sistem.png (PNG copy)>]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 832.
+Package pdftex.def Info: design/Header.png  used on input line 834.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 832.
+Package pdftex.def Info: design/Footer.png  used on input line 834.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [13]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 982.
+Package pdftex.def Info: design/Header.png  used on input line 984.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 982.
+Package pdftex.def Info: design/Footer.png  used on input line 984.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [14]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 985.
+Package pdftex.def Info: design/Header.png  used on input line 987.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 985.
+Package pdftex.def Info: design/Footer.png  used on input line 987.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [15]
 (C:\Users\jenni\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
@@ -958,17 +958,17 @@ File: lstlang1.sty 2025/11/14 1.11b listings language file
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 1022.
+nput line 1024.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 1023.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 1025.
 
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1030.
+Package pdftex.def Info: design/Header.png  used on input line 1032.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1030.
+Package pdftex.def Info: design/Footer.png  used on input line 1032.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 
 [16
@@ -977,110 +977,110 @@ Package pdftex.def Info: design/Footer.png  used on input line 1030.
 <images/percobaan_1.jpg, id=326, 562.903pt x 273.823pt>
 File: images/percobaan_1.jpg Graphic file (type jpg)
 <use images/percobaan_1.jpg>
-Package pdftex.def Info: images/percobaan_1.jpg  used on input line 1074.
+Package pdftex.def Info: images/percobaan_1.jpg  used on input line 1076.
 (pdftex.def)             Requested size: 386.96027pt x 188.24449pt.
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1078.
+Package pdftex.def Info: design/Header.png  used on input line 1080.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1078.
+Package pdftex.def Info: design/Footer.png  used on input line 1080.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [17]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1115.
+Package pdftex.def Info: design/Header.png  used on input line 1117.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1115.
+Package pdftex.def Info: design/Footer.png  used on input line 1117.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [18 <./images/percobaan_1.jpg>]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1147.
+Package pdftex.def Info: design/Header.png  used on input line 1149.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1147.
+Package pdftex.def Info: design/Footer.png  used on input line 1149.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [19]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1196.
+Package pdftex.def Info: design/Header.png  used on input line 1198.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1196.
+Package pdftex.def Info: design/Footer.png  used on input line 1198.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [20]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1248.
+Package pdftex.def Info: design/Header.png  used on input line 1250.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1248.
+Package pdftex.def Info: design/Footer.png  used on input line 1250.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [21]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1298.
+Package pdftex.def Info: design/Header.png  used on input line 1300.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1298.
+Package pdftex.def Info: design/Footer.png  used on input line 1300.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [22]
 <images/percobaan_2.jpg, id=576, 563.706pt x 294.701pt>
 File: images/percobaan_2.jpg Graphic file (type jpg)
 <use images/percobaan_2.jpg>
-Package pdftex.def Info: images/percobaan_2.jpg  used on input line 1348.
+Package pdftex.def Info: images/percobaan_2.jpg  used on input line 1350.
 (pdftex.def)             Requested size: 386.96027pt x 202.30515pt.
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1352.
+Package pdftex.def Info: design/Header.png  used on input line 1354.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1352.
+Package pdftex.def Info: design/Footer.png  used on input line 1354.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [23]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1432.
+Package pdftex.def Info: design/Header.png  used on input line 1434.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1432.
+Package pdftex.def Info: design/Footer.png  used on input line 1434.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [24 <./images/percobaan_2.jpg>]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1451.
+Package pdftex.def Info: design/Header.png  used on input line 1453.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1451.
+Package pdftex.def Info: design/Footer.png  used on input line 1453.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [25]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1506.
+Package pdftex.def Info: design/Header.png  used on input line 1508.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1506.
+Package pdftex.def Info: design/Footer.png  used on input line 1508.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [26]
 File: design/Header.png Graphic file (type png)
 <use design/Header.png>
-Package pdftex.def Info: design/Header.png  used on input line 1509.
+Package pdftex.def Info: design/Header.png  used on input line 1511.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
 File: design/Footer.png Graphic file (type png)
 <use design/Footer.png>
-Package pdftex.def Info: design/Footer.png  used on input line 1509.
+Package pdftex.def Info: design/Footer.png  used on input line 1511.
 (pdftex.def)             Requested size: 597.50787pt x 57.82085pt.
  [27] (main.aux)
  ***********
@@ -1091,10 +1091,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 3602CAC5A2938E9BFFAE72125074C6CB;4490.
  ) 
 Here is how much of TeX's memory you used:
- 16970 strings out of 467871
- 269217 string characters out of 5418376
- 1185574 words of memory out of 5000000
- 45256 multiletter control sequences out of 15000+600000
+ 16973 strings out of 467871
+ 269288 string characters out of 5418376
+ 1185572 words of memory out of 5000000
+ 45259 multiletter control sequences out of 15000+600000
  636414 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,15n,79p,605b,2168s stack positions out of 10000i,1000n,20000p,200000b,200000s

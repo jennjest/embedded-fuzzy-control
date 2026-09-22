@@ -361,7 +361,7 @@ Alat dan bahan yang digunakan dalam percobaan ditunjukkan pada Tabel~\ref{tab:al
 
 \subsection{Embedded System}
 
-Embedded system adalah sistem komputer yang dibuat khusus untuk menjalankan fungsi tertentu di dalam sebuah perangkat. Sistem ini terdiri dari perangkat keras dan program yang saling bekerja untuk menerima data, mengolahnya, dan menghasilkan keluaran sesuai kebutuhan. Istilah embedded berarti sistem komputer tersebut menjadi bagian dari perangkat dan menjalankan fungsi yang sudah ditentukan. Pada percobaan ini, embedded system digunakan untuk membaca kondisi lingkungan tanaman melalui sensor suhu dan kelembapan tanah, kemudian memberikan indikasi kondisi melalui LED.
+Embedded system adalah sistem komputer yang dibuat khusus untuk menjalankan fungsi tertentu di dalam sebuah perangkat. Sistem ini terdiri dari perangkat keras dan program yang saling bekerja untuk menerima data, mengolahnya, dan menghasilkan keluaran sesuai kebutuhan. Istilah embedded berarti sistem komputer tersebut menjadi bagian dari perangkat dan menjalankan fungsi yang sudah ditentukan. Pada percobaan ini, embedded system digunakan untuk membaca kondisi lingkungan tanaman melalui sensor suhu dan kelembapan tanah, kemudian memberikan indikasi kondisi melalui LED (Wijayakusuma et al., 2025).
 
 Berbeda dengan komputer umum yang dapat digunakan untuk berbagai keperluan, embedded system biasanya dirancang untuk satu atau beberapa fungsi tertentu. Pada percobaan ini, sistem bekerja dengan membaca nilai sensor, mengolah data tersebut, lalu menentukan kondisi tanaman berdasarkan hasil pembacaan.
 
@@ -389,7 +389,7 @@ Pada percobaan ini, LED digunakan sebagai keluaran indikator sistem. LED tidak m
 
 \subsubsection{Pengertian Fuzzy Logic}
 
-Fuzzy logic atau logika fuzzy merupakan metode logika yang digunakan untuk merepresentasikan dan mengolah informasi berdasarkan derajat keanggotaan suatu nilai terhadap suatu himpunan. Derajat keanggotaan tersebut dinyatakan dalam bentuk angka pada rentang 0 sampai 1, dengan nilai 0 menunjukkan bahwa suatu nilai sama sekali tidak termasuk dalam himpunan tertentu, sedangkan nilai 1 menunjukkan bahwa suatu nilai sepenuhnya termasuk dalam himpunan tersebut.
+Fuzzy logic atau logika fuzzy merupakan metode logika yang digunakan untuk merepresentasikan dan mengolah informasi berdasarkan derajat keanggotaan suatu nilai terhadap suatu himpunan (Sinha \& Tiwary, 2026). Derajat keanggotaan tersebut dinyatakan dalam bentuk angka pada rentang 0 sampai 1, dengan nilai 0 menunjukkan bahwa suatu nilai sama sekali tidak termasuk dalam himpunan tertentu, sedangkan nilai 1 menunjukkan bahwa suatu nilai sepenuhnya termasuk dalam himpunan tersebut.
 
 Berbanding terbalik dengan fuzzy logic, crisp logic atau logika tegas hanya mengenal dua kondisi, yaitu benar atau salah, sehingga suatu nilai hanya dapat masuk ke dalam satu kategori secara mutlak. Fuzzy logic berbeda dengan crisp logic karena memungkinkan suatu nilai memiliki tingkat keanggotaan terhadap lebih dari satu kategori dalam waktu yang bersamaan. Sebagai contoh, suatu nilai suhu dapat dikatakan sebagian termasuk kategori sedang dan sebagian termasuk kategori panas, tergantung pada seberapa dekat nilai tersebut terhadap batas masing-masing kategori.
 
@@ -471,7 +471,7 @@ Fuzzy PI hanya diperkenalkan sebagai pendekatan lain dalam bidang fuzzy control 
 
 Selain dibedakan berdasarkan jenis input yang digunakan, sistem fuzzy logic juga dapat dibedakan berdasarkan metode inferensi yang digunakan pada tahap penalaran dan defuzzifikasi. Beberapa metode inferensi yang umum digunakan antara lain metode Mamdani, metode Sugeno (Takagi-Sugeno-Kang), dan metode Tsukamoto.
 
-Sistem pada modul ini menggunakan keluaran rule berupa nilai crisp tunggal (singleton) untuk setiap kategori, yaitu 0, 50, dan 100, yang kemudian digabungkan langsung menggunakan rata-rata berbobot (weighted average) tanpa melalui proses agregasi himpunan fuzzy maupun perhitungan centroid. Karakteristik tersebut sesuai dengan metode Sugeno orde-nol (zero-order Sugeno), sehingga proses penalaran dan defuzzifikasi pada modul ini mengikuti metode Sugeno.
+Sistem pada modul ini menggunakan keluaran rule berupa nilai crisp tunggal (singleton) untuk setiap kategori, yaitu 0, 50, dan 100, yang kemudian digabungkan langsung menggunakan rata-rata berbobot (weighted average) tanpa melalui proses agregasi himpunan fuzzy maupun perhitungan centroid. Karakteristik tersebut sesuai dengan metode Sugeno orde-nol (zero-order Sugeno), sehingga proses penalaran dan defuzzifikasi pada modul ini mengikuti metode Sugeno (Wijayakusuma et al., 2025).
 
 Metode Mamdani dan Tsukamoto tidak diterapkan pada sistem yang dipraktikkan dan tidak menjadi bagian dari pembahasan modul ini.
 
@@ -484,7 +484,7 @@ Alur pengolahan tersebut ditunjukkan pada Gambar~\ref{fig:alur-pengolahan-fuzzy}
 \begin{figure}[H]
     \centering
     \includegraphics[
-        width=0.8\textwidth,
+        width=0.6\textwidth,
         keepaspectratio
     ]{images/fuzzy-3.png}
     \caption{Alur pengolahan fuzzy}
@@ -623,12 +623,14 @@ z=
 {\sum_{i=1}^{n}\alpha_i}
 \]
 
+\begin{samepage}
 dengan:
 \begin{itemize}
     \item $z$ = nilai keluaran akhir,
     \item $\alpha_i$ = kekuatan rule ke-$i$,
     \item $z_i$ = nilai keluaran dari rule ke-$i$.
 \end{itemize}
+\end{samepage}
 
 Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}6$, sedangkan Rule 6 menghasilkan keluaran kuning dengan kekuatan $0{,}4$. Maka nilai keluaran akhir dihitung sebagai berikut.
 
@@ -1586,12 +1588,12 @@ Berikut adalah daftar istilah penting yang digunakan dalam modul ini beserta pen
 
 \noindent
 \hangindent=1.2cm\hangafter=1
-Nasron, N., Suroso, S. and Putri, A. (2019). Perancangan Logika Fuzzy Untuk Sistem Pengendali Kelembaban Tanah dan Suhu Tanaman. \textit{JURNAL MEDIA INFORMATIKA BUDIDARMA}. doi: 10.30865/mib.v3i4.1245.
+Sinha, M. and Tiwary, R. (2026). Development of an ESP32-Based Fuzzy Logic Smart Farming Monitoring System for Enhanced Agricultural Productivity. International Journal For Multidisciplinary Research. doi: 10.36948/ijfmr.2026.v08i01.69732.
 
 \vspace{0.3cm}
 
 \noindent
 \hangindent=1.2cm\hangafter=1
-Sinha, M. and Tiwary, R. (2026). Development of an ESP32-Based Fuzzy Logic Smart Farming Monitoring System for Enhanced Agricultural Productivity. \textit{International Journal For Multidisciplinary Research}. doi: 10.36948/ijfmr.2026.v08i01.69732.
+Wijayakusuma, P., Hakim, G. P. N. and Li, B. (2025). TerraGrow: Integrated platform for real time plant monitoring and automated watering system with IoT and fuzzy Sugeno Algorithm. HardwareX, 24. doi: 10.1016/j.ohx.2025.e00724.
 
 \end{document}
