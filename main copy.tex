@@ -393,7 +393,9 @@ Fuzzy logic atau logika fuzzy merupakan metode logika yang digunakan untuk merep
 
 Berbanding terbalik dengan fuzzy logic, crisp logic atau logika tegas hanya mengenal dua kondisi, yaitu benar atau salah, sehingga suatu nilai hanya dapat masuk ke dalam satu kategori secara mutlak. Fuzzy logic berbeda dengan crisp logic karena memungkinkan suatu nilai memiliki tingkat keanggotaan terhadap lebih dari satu kategori dalam waktu yang bersamaan. Sebagai contoh, suatu nilai suhu dapat dikatakan sebagian termasuk kategori sedang dan sebagian termasuk kategori panas, tergantung pada seberapa dekat nilai tersebut terhadap batas masing-masing kategori.
 
-Kemampuan tersebut membuat fuzzy logic sesuai digunakan pada sistem yang kondisi lingkungannya tidak selalu memiliki batas yang tegas, seperti sistem pemantauan tanaman yang dibahas pada modul ini. Untuk menentukan derajat keanggotaan, digunakan \textit{membership function}. \textit{Membership function} berfungsi untuk menentukan seberapa besar suatu nilai sensor termasuk ke dalam kategori tertentu. Bentuk \textit{membership function} yang umum digunakan antara lain berbentuk segitiga (\textit{triangular}) dan trapesium (\textit{trapezoidal}).
+Kemampuan tersebut membuat fuzzy logic sesuai digunakan pada sistem yang kondisi lingkungannya tidak selalu memiliki batas yang tegas, seperti sistem pemantauan tanaman yang dibahas pada modul ini. Untuk menentukan derajat keanggotaan, digunakan membership function. Membership function berfungsi untuk menentukan seberapa besar suatu nilai sensor termasuk ke dalam kategori tertentu. Bentuk membership function yang umum digunakan antara lain berbentuk segitiga (triangular) dan trapesium (trapezoidal).
+
+Contoh fungsi keanggotaan segitiga dan trapesium ditunjukkan pada Gambar~\ref{fig:membership-segitiga} dan Gambar~\ref{fig:membership-trapesium}.
 
 \begin{figure}[H]
     \centering
@@ -415,7 +417,7 @@ Kemampuan tersebut membuat fuzzy logic sesuai digunakan pada sistem yang kondisi
     \label{fig:membership-trapesium}
 \end{figure}
 
-Pada percobaan ini digunakan \textit{membership function} berbentuk segitiga. Untuk fungsi segitiga, derajat keanggotaan dapat dihitung menggunakan persamaan berikut.
+Pada percobaan ini digunakan membership function berbentuk segitiga. Untuk fungsi segitiga, derajat keanggotaan dapat dihitung menggunakan persamaan berikut.
 
 \[
 \mu(x)=
@@ -447,7 +449,7 @@ Fuzzy Direct merupakan pendekatan yang menggunakan nilai kondisi atau input sist
 \text{Keluaran}
 \]
 
-Fuzzy PI merupakan pendekatan yang menggunakan error dan perubahan error ($\Delta$ error) sebagai input fuzzy, bukan nilai kondisi sistem secara langsung. Error dihitung sebagai selisih antara kondisi aktual dengan nilai target (\textit{setpoint}) yang telah ditentukan, sedangkan $\Delta$ error dihitung sebagai selisih antara error saat ini dengan error pada waktu sebelumnya. Pendekatan ini digunakan pada sistem kontrol yang memerlukan penyesuaian keluaran secara bertahap berdasarkan seberapa jauh kondisi aktual menyimpang dari target.
+Fuzzy PI merupakan pendekatan yang menggunakan error dan perubahan error ($\Delta$ error) sebagai input fuzzy, bukan nilai kondisi sistem secara langsung. Error dihitung sebagai selisih antara kondisi aktual dengan nilai target (setpoint) yang telah ditentukan, sedangkan $\Delta$ error dihitung sebagai selisih antara error saat ini dengan error pada waktu sebelumnya. Pendekatan ini digunakan pada sistem kontrol yang memerlukan penyesuaian keluaran secara bertahap berdasarkan seberapa jauh kondisi aktual menyimpang dari target.
 
 Alur kerja Fuzzy PI adalah sebagai berikut.
 
@@ -467,15 +469,17 @@ Fuzzy PI hanya diperkenalkan sebagai pendekatan lain dalam bidang fuzzy control 
 
 \subsubsection{Metode Inferensi Fuzzy}
 
-Selain dibedakan berdasarkan jenis input yang digunakan, sistem fuzzy logic juga dapat dibedakan berdasarkan metode inferensi yang digunakan pada tahap penalaran dan defuzzifikasi. Beberapa metode inferensi yang umum digunakan antara lain metode Mamdani, metode Sugeno (\textit{Takagi-Sugeno-Kang}), dan metode Tsukamoto.
+Selain dibedakan berdasarkan jenis input yang digunakan, sistem fuzzy logic juga dapat dibedakan berdasarkan metode inferensi yang digunakan pada tahap penalaran dan defuzzifikasi. Beberapa metode inferensi yang umum digunakan antara lain metode Mamdani, metode Sugeno (Takagi-Sugeno-Kang), dan metode Tsukamoto.
 
-Sistem pada modul ini menggunakan keluaran \textit{rule} berupa nilai \textit{crisp} tunggal (\textit{singleton}) untuk setiap kategori, yaitu 0, 50, dan 100, yang kemudian digabungkan langsung menggunakan rata-rata berbobot (\textit{weighted average}) tanpa melalui proses agregasi himpunan fuzzy maupun perhitungan \textit{centroid}. Karakteristik tersebut sesuai dengan metode Sugeno orde-nol (\textit{zero-order Sugeno}), sehingga proses penalaran dan defuzzifikasi pada modul ini mengikuti metode Sugeno.
+Sistem pada modul ini menggunakan keluaran rule berupa nilai crisp tunggal (singleton) untuk setiap kategori, yaitu 0, 50, dan 100, yang kemudian digabungkan langsung menggunakan rata-rata berbobot (weighted average) tanpa melalui proses agregasi himpunan fuzzy maupun perhitungan centroid. Karakteristik tersebut sesuai dengan metode Sugeno orde-nol (zero-order Sugeno), sehingga proses penalaran dan defuzzifikasi pada modul ini mengikuti metode Sugeno.
 
 Metode Mamdani dan Tsukamoto tidak diterapkan pada sistem yang dipraktikkan dan tidak menjadi bagian dari pembahasan modul ini.
 
 \subsubsection{Alur Pengolahan Fuzzy}
 
 Secara umum, proses fuzzy logic pada sistem ini terdiri atas beberapa tahap yang dijalankan secara berurutan, mulai dari pembacaan nilai sensor hingga diperoleh keputusan akhir berupa indikator LED. Tahap tersebut meliputi input, fuzzifikasi, penalaran berdasarkan aturan dasar, defuzzifikasi, hingga output. Setiap tahap memiliki fungsi yang berbeda dalam mengolah data sensor menjadi keputusan sistem.
+
+Alur pengolahan tersebut ditunjukkan pada Gambar~\ref{fig:alur-pengolahan-fuzzy}.
 
 \begin{figure}[H]
     \centering
@@ -489,7 +493,7 @@ Secara umum, proses fuzzy logic pada sistem ini terdiri atas beberapa tahap yang
 
 \textbf{a) Input}
 
-Tahap input merupakan tahap awal dalam proses pengolahan fuzzy. Pada tahap ini, sistem membaca kondisi lingkungan menggunakan sensor DHT22 untuk mengukur suhu dan \textit{Capacitive Soil Moisture Sensor} untuk mengukur kelembapan tanah. Hasil pembacaan sensor berupa nilai \textit{crisp}, yaitu nilai dalam bentuk angka yang dapat diukur secara langsung, misalnya suhu sebesar $28^\circ$C dan kelembapan tanah sebesar $32\%$.
+Tahap input merupakan tahap awal dalam proses pengolahan fuzzy. Pada tahap ini, sistem membaca kondisi lingkungan menggunakan sensor DHT22 untuk mengukur suhu dan Capacitive Soil Moisture Sensor untuk mengukur kelembapan tanah. Hasil pembacaan sensor berupa nilai crisp, yaitu nilai dalam bentuk angka yang dapat diukur secara langsung, misalnya suhu sebesar $28^\circ$C dan kelembapan tanah sebesar $32\%$.
 
 Nilai tersebut kemudian digunakan sebagai masukan untuk proses fuzzy pada tahap berikutnya. Pada tahap input, sistem hanya bertugas membaca dan mengambil data dari sensor. Sistem belum menentukan apakah kondisi tanah termasuk kering, lembap, atau basah, maupun apakah suhu termasuk rendah, sedang, atau tinggi.
 
@@ -497,7 +501,7 @@ Hasil pembacaan pada tahap ini menjadi dasar untuk menentukan kondisi tanaman me
 
 \textbf{b) Fuzzifikasi}
 
-Fuzzifikasi merupakan tahap mengubah nilai input \textit{crisp} menjadi derajat keanggotaan fuzzy pada masing-masing himpunan yang telah ditentukan. Pada tahap ini, nilai suhu dan kelembapan tanah yang diperoleh dari sensor dimasukkan ke dalam \textit{membership function} masing-masing variabel untuk mengetahui seberapa besar nilai tersebut termasuk ke dalam kategori tertentu. Bentuk \textit{membership function} untuk masing-masing variabel input ditampilkan pada gambar berikut.
+Fuzzifikasi merupakan tahap mengubah nilai input crisp menjadi derajat keanggotaan fuzzy pada masing-masing himpunan yang telah ditentukan. Pada tahap ini, nilai suhu dan kelembapan tanah yang diperoleh dari sensor dimasukkan ke dalam membership function masing-masing variabel untuk mengetahui seberapa besar nilai tersebut termasuk ke dalam kategori tertentu. Bentuk membership function untuk suhu dan kelembapan tanah ditampilkan pada Gambar~\ref{fig:membership-suhu} dan Gambar~\ref{fig:membership-kelembapan}.
 
 \begin{figure}[H]
     \centering
@@ -519,24 +523,24 @@ Fuzzifikasi merupakan tahap mengubah nilai input \textit{crisp} menjadi derajat 
     \label{fig:membership-kelembapan}
 \end{figure}
 
-Sebagai contoh, berdasarkan pengujian pada sistem, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan \textit{membership function}, suhu tersebut termasuk dalam kategori sedang dan panas. Perhitungan derajat keanggotaannya adalah sebagai berikut.
+Sebagai contoh, sensor membaca suhu sebesar $27^\circ$C. Berdasarkan membership function, suhu tersebut termasuk dalam kategori sedang dan panas. Perhitungan derajat keanggotaannya adalah sebagai berikut.
 
-Untuk kategori dingin dengan parameter $[0,24,28]$:
-
-\[
-\mu_{\text{dingin}}(27)
-=
-\frac{28-27}{28-24}
-=
-\frac{1}{4}
-=
-0{,}25
-\]
-
-Untuk kategori sedang dengan parameter $[25,30,45]$:
+Untuk kategori sedang dengan parameter $[20,25,30]$:
 
 \[
 \mu_{\text{sedang}}(27)
+=
+\frac{30-27}{30-25}
+=
+\frac{3}{5}
+=
+0{,}6
+\]
+
+Untuk kategori panas dengan parameter $[25,30,35]$:
+
+\[
+\mu_{\text{panas}}(27)
 =
 \frac{27-25}{30-25}
 =
@@ -545,13 +549,13 @@ Untuk kategori sedang dengan parameter $[25,30,45]$:
 0{,}4
 \]
 
-Dengan demikian, hasil fuzzifikasi menunjukkan bahwa suhu $27^\circ$C memiliki derajat keanggotaan $0{,}25$ pada kategori dingin dan $0{,}4$ pada kategori sedang. Pada saat yang sama, misalkan hasil pembacaan sensor menunjukkan bahwa kelembapan tanah berada sepenuhnya pada kategori lembap, sehingga derajat keanggotaannya pada kategori tersebut adalah $1{,}0$. Nilai $1{,}0$ tersebut menunjukkan tingkat keanggotaan penuh, bukan nilai kelembapan tanah yang sebenarnya.
+Dengan demikian, hasil fuzzifikasi menunjukkan bahwa suhu $27^\circ$C memiliki derajat keanggotaan $0{,}6$ pada kategori sedang dan $0{,}4$ pada kategori panas. Pada saat yang sama, misalkan hasil pembacaan sensor menunjukkan bahwa kelembapan tanah berada sepenuhnya pada kategori lembap, sehingga derajat keanggotaannya pada kategori tersebut adalah $1{,}0$. Nilai $1{,}0$ tersebut menunjukkan tingkat keanggotaan penuh, bukan nilai kelembapan tanah yang sebenarnya.
 
 Hal ini menunjukkan bahwa satu nilai input dapat memiliki derajat keanggotaan pada lebih dari satu kategori secara bersamaan. Dengan kondisi tersebut, terdapat lebih dari satu rule yang dapat aktif pada waktu yang sama. Hasil fuzzifikasi selanjutnya digunakan sebagai input pada tahap penalaran berdasarkan aturan dasar.
 
 \textbf{c) Penalaran Berdasarkan Aturan Dasar}
 
-Penalaran merupakan tahap menentukan hasil berdasarkan hubungan antara input yang telah difuzzifikasi dengan aturan dasar (\textit{rule}) yang telah disusun sebelumnya. Sistem ini menggunakan rule yang menggabungkan kategori suhu dengan kategori kelembapan tanah menggunakan operator AND. Dalam fuzzy logic, operator AND diselesaikan dengan mengambil nilai minimum dari kedua derajat keanggotaan yang digabungkan.
+Penalaran merupakan tahap menentukan hasil berdasarkan hubungan antara input yang telah difuzzifikasi dengan aturan dasar (rule) yang telah disusun sebelumnya. Sistem ini menggunakan rule yang menggabungkan kategori suhu dengan kategori kelembapan tanah menggunakan operator AND. Dalam fuzzy logic, operator AND diselesaikan dengan mengambil nilai minimum dari kedua derajat keanggotaan yang digabungkan.
 
 Setiap rule menghasilkan salah satu kategori keluaran linguistik berupa warna indikator, yaitu hijau atau kuning. Hubungan antara kondisi input dan keluaran tersebut ditentukan melalui rule base sistem fuzzy. Rule base digunakan sebagai dasar untuk menentukan kategori output berdasarkan kombinasi kondisi suhu dan kelembapan tanah.
 
@@ -565,45 +569,45 @@ Setiap rule menghasilkan salah satu kategori keluaran linguistik berupa warna in
     \label{fig:rule-base-fuzzy}
 \end{figure}
 
-Berdasarkan derajat keanggotaan yang telah diperoleh, yaitu suhu dingin sebesar $0{,}25$, suhu sedang sebesar $0{,}4$, dan kelembapan tanah lembap sebesar $1{,}0$, maka nilai $\alpha$ untuk setiap rule dihitung sebagai berikut.
-
-Rule 4:
-
-\[
-\alpha_4
-=
-\min(0{,}25;1{,}0)
-=
-0{,}25
-\]
+Berdasarkan derajat keanggotaan yang telah diperoleh, yaitu suhu sedang sebesar $0{,}6$, suhu panas sebesar $0{,}4$, dan kelembapan tanah lembap sebesar $1{,}0$, maka nilai $\alpha$ untuk setiap rule dihitung sebagai berikut.
 
 Rule 5:
 
 \[
 \alpha_5
 =
+\min(0{,}6;1{,}0)
+=
+0{,}6
+\]
+
+Rule 6:
+
+\[
+\alpha_6
+=
 \min(0{,}4;1{,}0)
 =
 0{,}4
 \]
 
-Rule 4 menggunakan kondisi suhu dingin dan kelembapan lembap sehingga menghasilkan kategori kuning. Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
+Rule 5 menggunakan kondisi suhu sedang dan kelembapan lembap sehingga menghasilkan kategori hijau. Rule 6 menggunakan kondisi suhu panas dan kelembapan lembap sehingga menghasilkan kategori kuning. Kedua rule tersebut dapat dihitung karena seluruh derajat keanggotaan yang terlibat bernilai lebih besar dari nol.
 
-Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 4 dan Rule 5. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 4 menghasilkan kategori kuning dan Rule 5 menghasilkan kategori hijau, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
+Rule yang aktif, yaitu rule dengan $\alpha > 0$, adalah Rule 5 dan Rule 6. Karena masing-masing rule menghasilkan kategori keluaran yang berbeda, yaitu Rule 5 menghasilkan kategori hijau dan Rule 6 menghasilkan kategori kuning, tidak diperlukan proses agregasi dengan nilai maksimum sebagaimana dilakukan apabila terdapat beberapa rule dengan kategori keluaran yang sama. Nilai $\alpha$ masing-masing rule langsung menjadi kekuatan akhir kategori keluarannya.
 
 \[
-\alpha_{\text{kuning}} = \alpha_4 = 0{,}25
+\alpha_{\text{hijau}} = \alpha_5 = 0{,}6
 \]
 
 \[
-\alpha_{\text{hijau}} = \alpha_5 = 0{,}4
+\alpha_{\text{kuning}} = \alpha_6 = 0{,}4
 \]
 
 Nilai-nilai tersebut menunjukkan kekuatan akhir masing-masing kategori keluaran warna indikator setelah mempertimbangkan seluruh rule yang aktif. Hasil penalaran kemudian diteruskan ke tahap defuzzifikasi untuk menghasilkan satu nilai keluaran.
 
 \textbf{d) Defuzzifikasi}
 
-Defuzzifikasi merupakan tahap mengubah hasil penalaran yang masih berbentuk representasi fuzzy menjadi satu nilai \textit{crisp} atau nilai tunggal yang dapat digunakan oleh sistem. Pada tahap ini, kekuatan masing-masing rule digunakan untuk memperoleh satu nilai keluaran akhir. Proses tersebut dapat digambarkan sebagai berikut.
+Defuzzifikasi merupakan tahap mengubah hasil penalaran yang masih berbentuk representasi fuzzy menjadi satu nilai crisp atau nilai tunggal yang dapat digunakan oleh sistem. Pada tahap ini, kekuatan masing-masing rule digunakan untuk memperoleh satu nilai keluaran akhir. Proses tersebut dapat digambarkan sebagai berikut.
 
 \[
 \text{Hasil Penalaran}
@@ -611,7 +615,7 @@ Defuzzifikasi merupakan tahap mengubah hasil penalaran yang masih berbentuk repr
 \text{Nilai Output Crisp}
 \]
 
-Metode yang digunakan adalah rata-rata berbobot (\textit{weighted average}), sesuai dengan metode Sugeno orde-nol, yang menghitung nilai rata-rata dari seluruh rule yang aktif dengan bobot berupa kekuatan masing-masing rule ($\alpha$). Nilai yang dibobotkan berupa nilai \textit{crisp} tunggal (\textit{singleton}) dari kategori keluaran rule tersebut, yaitu 0 untuk merah, 50 untuk kuning, dan 100 untuk hijau. Persamaan yang digunakan adalah sebagai berikut.
+Metode yang digunakan adalah rata-rata berbobot (weighted average), sesuai dengan metode Sugeno orde-nol, yang menghitung nilai rata-rata dari seluruh rule yang aktif dengan bobot berupa kekuatan masing-masing rule ($\alpha$). Nilai yang dibobotkan berupa nilai crisp tunggal (singleton) dari kategori keluaran rule tersebut, yaitu 0 untuk merah, 50 untuk kuning, dan 100 untuk hijau. Persamaan yang digunakan adalah sebagai berikut.
 
 \[
 z=
@@ -622,28 +626,28 @@ z=
 dengan:
 \begin{itemize}
     \item $z$ = nilai keluaran akhir,
-    \item $\alpha_i$ = kekuatan \textit{rule} ke-$i$,
-    \item $z_i$ = nilai keluaran dari \textit{rule} ke-$i$.
+    \item $\alpha_i$ = kekuatan rule ke-$i$,
+    \item $z_i$ = nilai keluaran dari rule ke-$i$.
 \end{itemize}
 
-Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}4$, sedangkan Rule 4 menghasilkan keluaran kuning dengan kekuatan $0{,}25$. Maka nilai keluaran akhir dihitung sebagai berikut.
+Melanjutkan contoh sebelumnya, Rule 5 menghasilkan keluaran hijau dengan kekuatan $0{,}6$, sedangkan Rule 6 menghasilkan keluaran kuning dengan kekuatan $0{,}4$. Maka nilai keluaran akhir dihitung sebagai berikut.
 
 \begin{align}
 z &=
-\frac{(0{,}4 \times 100)+(0{,}25 \times 50)}
-{0{,}4+0{,}25}
+\frac{(0{,}6 \times 100)+(0{,}4 \times 50)}
+{0{,}6+0{,}4}
 \\[4pt]
 &=
-\frac{40+12{,}5}{0{,}65}
+\frac{60+20}{1}
 \\[4pt]
-&\approx 80{,}77
+&= 80
 \end{align}
 
-Nilai $\approx 80{,}77$ merupakan hasil defuzzifikasi atau nilai keluaran akhir sistem. Nilai tersebut kemudian digunakan pada tahap output untuk menentukan warna LED yang akan menyala. Dengan demikian, hasil dari beberapa rule aktif dapat digabungkan menjadi satu nilai keluaran yang dapat digunakan oleh sistem.
+Nilai $80$ merupakan hasil defuzzifikasi atau nilai keluaran akhir sistem. Nilai tersebut kemudian digunakan pada tahap output untuk menentukan warna LED yang akan menyala. Dengan demikian, hasil dari beberapa rule aktif dapat digabungkan menjadi satu nilai keluaran yang dapat digunakan oleh sistem.
 
 \textbf{e) Output}
 
-Nilai \textit{crisp} ($z$) yang diperoleh dari tahap defuzzifikasi selanjutnya dipetakan ke dalam kategori LED berdasarkan rentang nilai yang telah ditentukan. Pemetaan tersebut digunakan untuk mengubah nilai keluaran menjadi indikator kondisi yang dapat diamati secara langsung oleh pengguna. Rentang kategori LED yang digunakan pada sistem adalah sebagai berikut.
+Nilai crisp ($z$) yang diperoleh dari tahap defuzzifikasi selanjutnya dipetakan ke dalam kategori LED berdasarkan rentang nilai yang telah ditentukan. Pemetaan tersebut digunakan untuk mengubah nilai keluaran menjadi indikator kondisi yang dapat diamati secara langsung oleh pengguna. Rentang kategori LED yang digunakan pada sistem adalah sebagai berikut.
 
 \[
 0 \leq z < 25
@@ -663,7 +667,8 @@ Nilai \textit{crisp} ($z$) yang diperoleh dari tahap defuzzifikasi selanjutnya d
 \text{LED Hijau}
 \]
 
-Melanjutkan contoh sebelumnya, nilai $z\approx80{,}77$ berada pada rentang $75 \leq z \leq 100$, sehingga sistem menghasilkan LED hijau. Dengan demikian, output yang diterima oleh pengguna sistem bukan berupa angka mentah, melainkan indikasi kondisi tanaman secara langsung melalui LED. Hal tersebut memungkinkan perubahan kondisi suhu dan kelembapan tanah diamati melalui perubahan indikator warna yang dihasilkan sistem.
+Melanjutkan contoh sebelumnya, nilai $z=80$ berada pada rentang $75 \leq z \leq 100$, sehingga sistem menghasilkan LED hijau. Dengan demikian, output yang diterima oleh pengguna sistem bukan berupa angka mentah, melainkan indikasi kondisi tanaman secara langsung melalui LED. Hal tersebut memungkinkan perubahan kondisi suhu dan kelembapan tanah diamati melalui perubahan indikator warna yang dihasilkan sistem.
+
 % =========================================================
 % 4. PERSIAPAN PERCOBAAN
 % =========================================================
@@ -675,13 +680,13 @@ Sebelum memulai percobaan, pastikan laptop, perangkat lunak, dan komponen yang d
 
 Perangkat lunak yang digunakan dalam percobaan adalah Arduino IDE. Arduino IDE digunakan untuk menulis program, memilih board ESP32, memilih port komunikasi, mengunggah program ke mikrokontroler, dan memantau data melalui Serial Monitor.
 
-Pastikan Arduino IDE telah ter-install pada laptop sebelum percobaan dimulai. Gunakan versi terbaru yang dapat diunduh melalui situs resmi Arduino pada tautan berikut:
+Pastikan Arduino IDE telah terpasang pada laptop sebelum percobaan dimulai. Gunakan versi terbaru yang dapat diunduh melalui situs resmi Arduino pada tautan berikut:
 
 \url{https://www.arduino.cc/en/software/}
 
 \begin{enumerate}
     \item Buka situs resmi Arduino dan unduh Arduino IDE sesuai dengan sistem operasi yang digunakan.
-    \item Install Arduino IDE pada laptop.
+    \item Pasang Arduino IDE pada laptop.
     \item Buka Arduino IDE dan pastikan program dapat dijalankan.
 \end{enumerate}
 
@@ -697,13 +702,13 @@ Program membutuhkan board package dan library agar Arduino IDE dapat mengenali p
     \url{https://espressif.github.io/arduino-esp32/package_esp32_index.json}
 
     \item Buka \textbf{Tools} $\rightarrow$ \textbf{Board} $\rightarrow$ \textbf{Boards Manager}.
-    \item Cari \textbf{esp32} dan install \textbf{esp32 by Espressif Systems}.
+    \item Cari \textbf{esp32} dan pasang \textbf{esp32 by Espressif Systems}.
     \item Setelah proses instalasi selesai, pilih \textbf{ESP32 Dev Module} melalui \textbf{Tools} $\rightarrow$ \textbf{Board}.
     \item Hubungkan ESP32 ke laptop menggunakan kabel USB.
     \item Pilih port komunikasi ESP32 melalui \textbf{Tools} $\rightarrow$ \textbf{Port}.
 \end{enumerate}
 
-Library yang dibutuhkan dalam percobaan dapat di-install melalui Arduino IDE. Buka \textbf{Tools} $\rightarrow$ \textbf{Manage Libraries}. Pada kolom pencarian, masukkan nama library yang dibutuhkan, kemudian pilih library yang sesuai dan klik \textbf{Install}. Library yang digunakan dalam percobaan adalah:
+Library yang dibutuhkan dalam percobaan dapat dipasang melalui Arduino IDE. Buka \textbf{Tools} $\rightarrow$ \textbf{Manage Libraries}. Pada kolom pencarian, masukkan nama library yang dibutuhkan, kemudian pilih library yang sesuai dan klik \textbf{Install}. Library yang digunakan dalam percobaan dirangkum pada Tabel~\ref{tab:library}.
 
 \begin{table}[H]
     \centering
@@ -744,11 +749,11 @@ Pastikan seluruh library yang dibutuhkan telah berhasil terpasang sebelum progra
     \label{fig:blok-sistem}
 \end{figure}
 
-Alur kerja sistem dimulai dari pembacaan data suhu dan kelembapan tanah oleh sensor. Data dari sensor kemudian diterima dan dibaca oleh ESP32, dengan nilai dari sensor analog dibaca menggunakan Analog to Digital Converter (ADC). Selanjutnya, data yang diperoleh diproses menggunakan logika fuzzy untuk menentukan kondisi sistem berdasarkan aturan yang telah dirancang. Hasil pengolahan tersebut kemudian digunakan untuk menentukan LED yang menyala sesuai dengan kondisi sistem.
+Alur kerja sistem ditunjukkan pada Gambar~\ref{fig:blok-sistem}. Sistem dimulai dari pembacaan data suhu dan kelembapan tanah oleh sensor. Data dari sensor kemudian diterima dan dibaca oleh ESP32, dengan nilai dari sensor analog dibaca menggunakan Analog to Digital Converter (ADC). Selanjutnya, data yang diperoleh diproses menggunakan logika fuzzy untuk menentukan kondisi sistem berdasarkan aturan yang telah dirancang. Hasil pengolahan tersebut kemudian digunakan untuk menentukan LED yang menyala sesuai dengan kondisi sistem.
 
 \subsection{Perancangan Input dan Output}
 
-Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan media. Masing-masing variabel dibagi menjadi tiga kategori untuk menyederhanakan proses pengambilan keputusan dan penyusunan rule. Setiap kategori memiliki batas nilai yang telah ditentukan sesuai dengan parameter membership function yang digunakan pada sistem.
+Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan media. Kategori input dan maknanya dirangkum pada Tabel~\ref{tab:kategoriinput}. Masing-masing variabel dibagi menjadi tiga kategori untuk menyederhanakan proses pengambilan keputusan dan penyusunan rule. Setiap kategori memiliki batas nilai yang telah ditentukan sesuai dengan parameter membership function yang digunakan pada sistem.
 
 \begin{table}[H]
     \centering
@@ -789,7 +794,7 @@ Dua variabel digunakan sebagai masukan sistem, yaitu suhu dan kelembapan media. 
     \end{tabularx}
 \end{table}
 
-Output sistem terdiri dari tiga kategori yang digunakan untuk merepresentasikan hasil keputusan fuzzy. Nilai keluaran dari proses defuzzifikasi kemudian dipetakan ke kategori LED yang telah ditentukan, sehingga hasil keputusan dapat ditampilkan secara langsung.
+Output sistem terdiri dari tiga kategori yang dirangkum pada Tabel~\ref{tab:output} dan digunakan untuk merepresentasikan hasil keputusan fuzzy. Nilai keluaran dari proses defuzzifikasi kemudian dipetakan ke kategori LED yang telah ditentukan, sehingga hasil keputusan dapat ditampilkan secara langsung.
 
 \begin{table}[H]
     \centering
@@ -824,7 +829,7 @@ Output sistem terdiri dari tiga kategori yang digunakan untuk merepresentasikan 
 
 \subsection{Membership Function}
 
-Membership function digunakan untuk mengubah nilai sensor menjadi derajat keanggotaan. Pada program percobaan digunakan fungsi keanggotaan untuk suhu dan kelembapan tanah dengan parameter yang telah ditentukan di dalam program. Parameter tersebut digunakan langsung oleh ESP32 pada proses fuzzifikasi sebelum dilanjutkan ke tahap inferensi.
+Membership function digunakan untuk mengubah nilai sensor menjadi derajat keanggotaan. Parameter fungsi keanggotaan yang digunakan pada sistem dirangkum pada Tabel~\ref{tab:mf}. Parameter tersebut digunakan langsung oleh ESP32 pada proses fuzzifikasi sebelum dilanjutkan ke tahap inferensi.
 
 \begin{table}[H]
     \centering
@@ -886,7 +891,7 @@ Penguji tidak perlu menghitung seluruh kombinasi membership function secara manu
 
 \subsection{Fuzzy Rule}
 
-Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelembapan media. Setiap kombinasi input menghasilkan salah satu dari tiga keluaran fuzzy, yaitu buruk, sedang, atau baik. Keluaran fuzzy tersebut kemudian digunakan dalam proses inferensi dan defuzzifikasi untuk memperoleh nilai output akhir yang digunakan dalam menentukan LED.
+Rule base pada Tabel~\ref{tab:fuzzy-rule} dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelembapan media. Setiap kombinasi input menghasilkan salah satu dari tiga keluaran fuzzy, yaitu buruk, sedang, atau baik. Keluaran fuzzy tersebut kemudian digunakan dalam proses inferensi dan defuzzifikasi untuk memperoleh nilai output akhir yang digunakan dalam menentukan LED.
 
 \begin{table}[H]
     \centering
@@ -972,11 +977,11 @@ Rule base dibuat dengan mengombinasikan tiga kondisi suhu dan tiga kondisi kelem
     \end{tabularx}
 \end{table}
 
-Setiap rule menggunakan operator AND untuk menggabungkan kondisi suhu dan kelembapan media. Kekuatan setiap rule ditentukan menggunakan nilai minimum dari derajat keanggotaan kedua input. Misalnya, jika derajat keanggotaan suhu sedang adalah 0,6 dan derajat keanggotaan kelembapan lembap adalah 0,8, maka kekuatan rule yang menggabungkan kedua kondisi tersebut adalah 0,6.
+Setiap rule menggunakan operator AND untuk menggabungkan kondisi suhu dan kelembapan media. Susunan hubungan antara kondisi input dan keluaran ditampilkan pada Gambar~\ref{fig:rule-base-fuzzy}. Kekuatan setiap rule ditentukan menggunakan nilai minimum dari derajat keanggotaan kedua input. Misalnya, jika derajat keanggotaan suhu sedang adalah 0,6 dan derajat keanggotaan kelembapan lembap adalah 0,8, maka kekuatan rule yang menggabungkan kedua kondisi tersebut adalah 0,6.
 
 Rule R1, R4, dan R7 menghasilkan output buruk dengan nilai representatif 0 sehingga diarahkan ke LED merah. Rule R2 dan R8 menghasilkan output sedang dengan nilai representatif 50 sehingga diarahkan ke LED kuning. Sementara itu, rule R3, R5, dan R6 menghasilkan output baik dengan nilai representatif 100 sehingga diarahkan ke LED hijau. Rule R9 menghasilkan output sedang dengan nilai representatif 50 karena kondisi suhu panas tetap perlu diperhatikan meskipun kelembapan media berada pada kategori basah.
 
-Nilai output pada tabel merupakan nilai representatif (\textit{singleton}) yang digunakan dalam proses defuzzifikasi. Nilai tersebut belum menjadi hasil akhir sistem karena beberapa rule dapat aktif secara bersamaan. Hasil akhir diperoleh dengan menggabungkan kekuatan rule yang aktif menggunakan metode rata-rata berbobot (Sugeno).
+Nilai output pada tabel merupakan nilai representatif (singleton) yang digunakan dalam proses defuzzifikasi. Nilai tersebut belum menjadi hasil akhir sistem karena beberapa rule dapat aktif secara bersamaan. Hasil akhir diperoleh dengan menggabungkan kekuatan rule yang aktif menggunakan metode rata-rata berbobot (Sugeno).
 
 \clearpage
 
@@ -999,15 +1004,13 @@ Percobaan pertama dilakukan untuk memastikan bahwa sensor dapat digunakan sebaga
 
 \subsection{Prosedur Percobaan}
 
-\subsection{Prosedur Percobaan}
-
 \begin{enumerate}
     \item Siapkan ESP32, DHT22, Capacitive Soil Moisture Sensor, breadboard, kabel jumper, rockwool, dan sumber udara dengan kondisi suhu yang berbeda.
     \item Rangkai DHT22 dan Capacitive Soil Moisture Sensor sesuai konfigurasi yang digunakan.
     \item Hubungkan ESP32 ke laptop.
     \item Buka program pembacaan sensor.
     \item Sesuaikan nomor pin pada program dengan wiring aktual.
-    \item Upload program ke ESP32.
+    \item Unggah program ke ESP32.
     \item Buka Serial Monitor dan pastikan data sensor dapat terbaca.
     \item Lakukan pengamatan pada beberapa kondisi media dengan tingkat kelembapan yang berbeda.
     \item Catat nilai kelembapan media yang terbaca pada setiap kondisi.
@@ -1061,6 +1064,8 @@ void loop()
   delay(2000);
 }
 \end{lstlisting}
+
+Rangkaian sensor pada Percobaan 1 ditunjukkan pada Gambar~\ref{fig:wiring-percobaan1}.
 
 \begin{figure}[H]
     \centering
@@ -1118,7 +1123,7 @@ Percobaan kedua menggabungkan pembacaan sensor dengan proses pengambilan keputus
     \item Pasang resistor LED sesuai kebutuhan rangkaian.
     \item Masukkan parameter membership function ke dalam program.
     \item Masukkan rule base ke dalam program.
-    \item Upload program ke ESP32.
+    \item Unggah program ke ESP32.
     \item Buka Serial Monitor dan pastikan data suhu, kelembapan media, output, dan status LED dapat terbaca.
     \item Lakukan pengujian menggunakan beberapa kondisi media dengan tingkat kelembapan yang berbeda.
     \item Lakukan pengujian pada beberapa kondisi suhu yang berbeda.
@@ -1334,6 +1339,8 @@ void loop()
 }
 \end{lstlisting}
 
+Rangkaian lengkap pada Percobaan 2 ditunjukkan pada Gambar~\ref{fig:wiring-percobaan2}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[
@@ -1390,6 +1397,7 @@ void loop()
 \begin{table}[H]
     \centering
     \caption{Tabel pengamatan kondisi lingkungan (lanjutan)}
+    \label{tab:pengamatan-lanjutan}
     \small
 
     \begin{tabularx}{\textwidth}{c L c c c c L}
@@ -1423,7 +1431,7 @@ void loop()
     \end{tabularx}
 \end{table}
 
-Nilai pada tabel harus diisi berdasarkan hasil pengukuran langsung selama percobaan. Jangan menggunakan nilai pada contoh perhitungan sebagai data pengamatan. Catatan harus menunjukkan kondisi yang benar-benar terlihat pada saat sistem dijalankan.
+Nilai pada Tabel~\ref{tab:pengamatan} dan Tabel~\ref{tab:pengamatan-lanjutan} harus diisi berdasarkan hasil pengukuran langsung selama percobaan. Jangan menggunakan nilai pada contoh perhitungan sebagai data pengamatan. Catatan harus menunjukkan kondisi yang benar-benar terlihat pada saat sistem dijalankan.
 
 \subsection{Analisis Percobaan}
 
@@ -1468,7 +1476,7 @@ Evaluasi dilakukan untuk mengetahui apakah sistem telah bekerja sesuai dengan ra
 \subsection*{Pertanyaan Evaluasi}
 
 \begin{enumerate}
-    \item Berdasarkan Tabel~\ref{tab:pengamatan}, kombinasi suhu dan kelembapan tanah apa yang menghasilkan LED hijau, kuning, dan merah? Jelaskan hubungannya dengan rule base.
+    \item Berdasarkan Tabel~\ref{tab:pengamatan} dan Tabel~\ref{tab:pengamatan-lanjutan}, kombinasi suhu dan kelembapan tanah apa yang menghasilkan LED hijau, kuning, dan merah? Jelaskan hubungannya dengan rule base pada Tabel~\ref{tab:fuzzy-rule}.
 
     \item Bandingkan hasil sistem pada kondisi suhu ruangan, udara dingin, dan udara panas. Jelaskan bagaimana perubahan suhu memengaruhi nilai output dan LED yang dihasilkan.
 
@@ -1498,5 +1506,92 @@ Evaluasi dilakukan untuk mengetahui apakah sistem telah bekerja sesuai dengan ra
 Pada percobaan ini, penguji telah menggunakan data suhu dan kelembapan tanah sebagai input sistem monitoring kondisi tanaman. Data sensor diproses menggunakan membership function dan rule sederhana untuk menghasilkan keputusan yang kemudian ditampilkan melalui LED. Rangkaian tersebut menunjukkan bagaimana metode pengambilan keputusan dapat diimplementasikan secara langsung pada ESP32 sebagai platform embedded system.
 
 Melalui dua percobaan, penguji mengamati pembacaan sensor, proses pengolahan fuzzy, dan respons sistem terhadap berbagai kombinasi kondisi suhu dan kelembapan tanah. Hasil pengamatan digunakan untuk membandingkan kondisi input dengan keluaran yang dihasilkan oleh sistem serta melihat kesesuaian antara hasil aktual dan rule yang telah dirancang. Evaluasi pada akhir percobaan membantu penguji memahami hubungan antara perubahan input, proses fuzzy, dan keputusan yang ditampilkan melalui LED.
+
+% =========================================================
+% 10. GLOSARIUM
+% =========================================================
+\section{Glosarium}
+
+Berikut adalah daftar istilah penting yang digunakan dalam modul ini beserta penjelasan sederhananya.
+
+\begin{itemize}[label={}, leftmargin=0pt, itemsep=0.35cm]
+    \item \textbf{Aktuator}\\
+    Komponen yang mengubah keputusan sistem menjadi aksi atau tampilan yang dapat diamati secara langsung, misalnya LED yang menyala.
+
+    \item \textbf{Analog to Digital Converter (ADC)}\\
+    Bagian pada mikrokontroler yang mengubah sinyal analog dari sensor menjadi angka digital agar dapat diolah oleh program.
+
+    \item \textbf{Capacitive Soil Moisture Sensor}\\
+    Sensor yang digunakan untuk mengukur tingkat kelembapan tanah atau media tanam.
+
+    \item \textbf{Crisp Logic (Logika Tegas)}\\
+    Cara berpikir yang hanya mengenal dua kemungkinan, yaitu benar atau salah, sehingga suatu nilai hanya dapat masuk ke satu kategori.
+
+    \item \textbf{Defuzzifikasi}\\
+    Tahap mengubah hasil penalaran fuzzy menjadi satu nilai akhir (nilai crisp) yang dapat digunakan sistem untuk mengambil keputusan.
+
+    \item \textbf{Derajat Keanggotaan}\\
+    Angka antara 0 sampai 1 yang menunjukkan seberapa besar suatu nilai termasuk ke dalam suatu kategori (himpunan fuzzy).
+
+    \item \textbf{DHT22}\\
+    Sensor yang digunakan untuk mengukur suhu dan kelembapan udara di sekitar tanaman.
+
+    \item \textbf{Embedded System}\\
+    Sistem komputer kecil yang dipasang di dalam suatu alat untuk menjalankan satu fungsi tertentu, seperti membaca sensor dan menyalakan LED.
+
+    \item \textbf{ESP32}\\
+    Jenis mikrokontroler yang digunakan sebagai pengendali utama pada percobaan dalam modul ini.
+
+    \item \textbf{Fungsi Keanggotaan (Membership Function)}\\
+    Rumus atau grafik yang digunakan untuk menghitung derajat keanggotaan suatu nilai sensor terhadap suatu kategori tertentu.
+
+    \item \textbf{Fuzzifikasi}\\
+    Tahap mengubah nilai sensor menjadi derajat keanggotaan pada beberapa kategori fuzzy.
+
+    \item \textbf{Himpunan Fuzzy}\\
+    Kategori nilai dalam logika fuzzy yang memiliki batas tidak tegas, misalnya kategori suhu ``sedang''.
+
+    \item \textbf{Logika Fuzzy (Fuzzy Logic)}\\
+    Metode pengambilan keputusan yang memungkinkan suatu nilai memiliki tingkat keanggotaan pada lebih dari satu kategori sekaligus, tidak hanya benar atau salah.
+
+    \item \textbf{Metode Sugeno}\\
+    Salah satu metode pengolahan fuzzy yang menghasilkan nilai akhir dengan menghitung rata-rata berbobot dari nilai output setiap rule yang aktif.
+
+    \item \textbf{Mikrokontroler}\\
+    Chip komputer kecil yang mengatur seluruh proses dalam embedded system, mulai dari membaca sensor hingga mengendalikan keluaran.
+
+    \item \textbf{Nilai Crisp}\\
+    Nilai akhir berupa satu angka tunggal, bukan lagi derajat keanggotaan, yang dihasilkan setelah proses defuzzifikasi.
+
+    \item \textbf{Penalaran (Inferensi)}\\
+    Tahap menentukan hasil berdasarkan rule (aturan) yang sesuai dengan kondisi input yang sedang terjadi.
+
+    \item \textbf{Rata-rata Berbobot (Weighted Average)}\\
+    Cara menghitung nilai akhir dengan mengalikan setiap nilai output rule dengan kekuatannya, lalu membagi totalnya dengan jumlah seluruh kekuatan rule yang aktif.
+
+    \item \textbf{Rule (Aturan Fuzzy)}\\
+    Pernyataan ``jika ... maka ...'' yang menghubungkan kondisi input, misalnya suhu dan kelembapan tanah, dengan kategori output sistem.
+
+    \item \textbf{Sensor}\\
+    Komponen yang mendeteksi kondisi fisik di sekitar, seperti suhu atau kelembapan, dan mengubahnya menjadi data yang dapat dibaca oleh mikrokontroler.
+
+    \item \textbf{Singleton}\\
+    Nilai tunggal yang mewakili suatu kategori output pada metode Sugeno, misalnya 0 untuk kondisi buruk, 50 untuk sedang, dan 100 untuk baik.
+\end{itemize}
+
+% =========================================================
+% 11. DAFTAR PUSTAKA
+% =========================================================
+\section{Daftar Pustaka}
+
+\noindent
+\hangindent=1.2cm\hangafter=1
+Nasron, N., Suroso, S. and Putri, A. (2019). Perancangan Logika Fuzzy Untuk Sistem Pengendali Kelembaban Tanah dan Suhu Tanaman. \textit{JURNAL MEDIA INFORMATIKA BUDIDARMA}. doi: 10.30865/mib.v3i4.1245.
+
+\vspace{0.3cm}
+
+\noindent
+\hangindent=1.2cm\hangafter=1
+Sinha, M. and Tiwary, R. (2026). Development of an ESP32-Based Fuzzy Logic Smart Farming Monitoring System for Enhanced Agricultural Productivity. \textit{International Journal For Multidisciplinary Research}. doi: 10.36948/ijfmr.2026.v08i01.69732.
 
 \end{document}
